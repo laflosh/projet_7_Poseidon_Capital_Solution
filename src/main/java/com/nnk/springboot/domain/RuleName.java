@@ -19,6 +19,9 @@ public class RuleName {
 	@Column(name = "name")
 	String name;
 	
+	@Column(name = "description")
+	String description;
+	
 	@Column(name = "json")
 	String json;
 	
@@ -30,6 +33,17 @@ public class RuleName {
 	
 	@Column(name = "sqlPart")
 	String sqlPart;
+	
+	public RuleName(String name, String description, String json, String template, String sqlStr, String sqlPart) {
+		
+		this.name = name;
+		this.description = description;
+		this.json = json;
+		this.template = template;
+		this.sqlStr = sqlStr;
+		this.sqlPart = sqlPart;
+		
+	}
 
 	public Integer getId() {
 		return id;
@@ -45,6 +59,14 @@ public class RuleName {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getJson() {

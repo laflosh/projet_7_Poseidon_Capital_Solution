@@ -78,6 +78,13 @@ public class Trade {
 	
 	@Column(name = "side")
 	String side;
+	
+	public Trade(String account, String type) {
+		
+		this.account = account;
+		this.type = type;
+		
+	}
 
 	public Integer getTradeId() {
 		return tradeId;
