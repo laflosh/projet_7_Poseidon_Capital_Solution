@@ -10,12 +10,18 @@ import com.nnk.springboot.repositories.RatingRepository;
 
 import jakarta.validation.Valid;
 
+/**
+ * 
+ */
 @Service
 public class RatingService {
 	
 	@Autowired
 	RatingRepository ratingRepository;
 
+	/**
+	 * @return
+	 */
 	public List<Rating> getAllRatings() {
 
 		List<Rating> ratings = ratingRepository.findAll();
@@ -24,6 +30,10 @@ public class RatingService {
 		
 	}
 	
+	/**
+	 * @param id
+	 * @return
+	 */
 	public Rating getRatingById(Integer id) {
 		
 		Rating rating = ratingRepository.findById(id)
@@ -32,12 +42,18 @@ public class RatingService {
 		return rating;
 	}
 
+	/**
+	 * @param rating
+	 */
 	public void addNewRating(@Valid Rating rating) {
 		
 		ratingRepository.save(rating);
 		
 	}
 
+	/**
+	 * @param rating
+	 */
 	public void updateRating(@Valid Rating rating) {
 		
 		Rating existingRating = getRatingById(rating.getId());
@@ -49,6 +65,23 @@ public class RatingService {
 		
 		ratingRepository.save(existingRating);
 		
+	}
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	public boolean deleteRating(Integer id) {
+
+		if(ratingRepository.existsById(id)) {
+			
+			ratingRepository.deleteById(id);
+			
+			return true;
+			
+		}
+		
+		return false;
 	}
 
 }
