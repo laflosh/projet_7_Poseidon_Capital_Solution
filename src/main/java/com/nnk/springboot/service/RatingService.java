@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.repositories.RatingRepository;
 
+import jakarta.validation.Valid;
+
 @Service
 public class RatingService {
 	
@@ -19,6 +21,12 @@ public class RatingService {
 		List<Rating> ratings = ratingRepository.findAll();
 		
 		return ratings;
+		
+	}
+
+	public void addNewRating(@Valid Rating rating) {
+		
+		ratingRepository.save(rating);
 		
 	}
 

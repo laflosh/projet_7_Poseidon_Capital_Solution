@@ -7,6 +7,8 @@ import jakarta.validation.Valid;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class RatingController {
+	
+	private static  final Logger log = LogManager.getLogger(RatingController.class);
     
 	@Autowired
 	RatingService ratingService;
@@ -26,6 +30,9 @@ public class RatingController {
     @RequestMapping("/rating/list")
     public String home(Model model, Authentication auth )
     {
+    	
+    	log.info("Trying to get all ratings in the database.");
+    	
         List<Rating> ratings = ratingService.getAllRatings();
         
         model.addAttribute("ratings", ratings);
@@ -35,14 +42,44 @@ public class RatingController {
     }
 
     @GetMapping("/rating/add")
-    public String addRatingForm(Rating rating) {
+    public String addRatingForm(Rating rating, Model model) {
+    	
+    	log.info("Acces to the adding rating page");
+    	
+    	model.addAttribute("rating", new Rating());
+    	
         return "rating/add";
+        
     }
 
     @PostMapping("/rating/validate")
-    public String validate(@Valid Rating rating, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Rating list
-        return "rating/add";
+    public String validate(@Valid Rating rating, BindingResult result, Model model, Authentication auth) {
+    	
+    	if(result.hasErrors()) {
+    		
+    		log.info("Error in the rating object : {}", result.getAllErrors());
+    		return "rating/add";
+    		
+    	}
+    	
+    	try {
+    		
+    		log.info("Trying to save a new rating in the database : {}", rating);
+    		
+        	ratingService.addNewRating(rating);
+            
+            model.addAttribute("ratings", ratingService.getAllRatings());
+            model.addAttribute("username", auth.getName());
+        	
+            return "redirect:/rating/list";
+    		
+    	} catch(Exception e ) {
+    		
+    		log.info("Error during saving the rating object : {}", e);
+    		return "rating/add";
+    		
+    	}
+
     }
 
     @GetMapping("/rating/update/{id}")

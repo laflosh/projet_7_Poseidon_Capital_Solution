@@ -6,26 +6,35 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "rating")
 public class Rating {
    
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private  Integer id;
 	
 	@Column(name = "moodysRating")
+	@NotNull
+	@NotEmpty
 	private String moodysRating;
 	
 	@Column(name = "sandPRating")
+	@NotNull
+	@NotEmpty
 	private String sandPRating;
 	
 	@Column(name = "fitchRating")
+	@NotNull
+	@NotEmpty
 	private String fitchRating;
 	
 	@Column(name = "orderNumber")
+	@NotNull
 	private Integer orderNumber;
 	
 	//Default constructor
