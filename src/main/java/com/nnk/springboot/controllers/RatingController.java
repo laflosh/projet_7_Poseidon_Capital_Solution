@@ -84,15 +84,46 @@ public class RatingController {
 
     @GetMapping("/rating/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get Rating by Id and to model then show to the form
+    	
+    	log.info("Acces to the update rating page");
+    	
+    	Rating rating  = ratingService.getRatingById(id);
+    	
+    	model.addAttribute("rating", rating);
+    	
         return "rating/update";
+        
     }
 
     @PostMapping("/rating/update/{id}")
-    public String updateRating(@PathVariable("id") Integer id, @Valid Rating rating,
-                             BindingResult result, Model model) {
+    public String updateRating(@PathVariable("id") Integer id, @Valid Rating rating, BindingResult result, Model model, Authentication auth) {
         // TODO: check required fields, if valid call service to update Rating and return Rating list
-        return "redirect:/rating/list";
+    	
+    	if(result.hasErrors()) {
+    		
+    		log.info("Error in the rating object : {}", result.getAllErrors());
+    		return "rating/update";
+    		
+    	}
+    	
+    	try {
+    		
+    		log.info("Trying to update a existing rating in the database : {}", rating);
+    		
+        	ratingService.updateRating(rating);
+            
+            model.addAttribute("ratings", ratingService.getAllRatings());
+            model.addAttribute("username", auth.getName());
+    		
+    		 return "redirect:/rating/list";
+    		
+    	} catch(Exception e) {
+    		
+    		log.info("Error during updating the rating object : {}", e);
+    		return "rating/update";
+    		
+    	}
+    	
     }
 
     @GetMapping("/rating/delete/{id}")

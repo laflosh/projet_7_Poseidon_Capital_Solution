@@ -23,10 +23,31 @@ public class RatingService {
 		return ratings;
 		
 	}
+	
+	public Rating getRatingById(Integer id) {
+		
+		Rating rating = ratingRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("Rating not found."));;
+		
+		return rating;
+	}
 
 	public void addNewRating(@Valid Rating rating) {
 		
 		ratingRepository.save(rating);
+		
+	}
+
+	public void updateRating(@Valid Rating rating) {
+		
+		Rating existingRating = getRatingById(rating.getId());
+		
+		existingRating.setMoodysRating(rating.getMoodysRating());
+		existingRating.setSandPRating(rating.getSandPRating());
+		existingRating.setFitchRating(rating.getFitchRating());
+		existingRating.setOrderNumber(rating.getOrderNumber());
+		
+		ratingRepository.save(existingRating);
 		
 	}
 
