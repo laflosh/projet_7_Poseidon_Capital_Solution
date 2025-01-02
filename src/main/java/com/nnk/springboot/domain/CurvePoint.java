@@ -33,6 +33,11 @@ public class CurvePoint {
 	@Column(name = "creationDate")
 	private Timestamp creationDate;
 	
+	//Default constructor
+	public CurvePoint() {
+		
+	}
+	
 	public CurvePoint(Integer curveId, double term, double value) {
 		this.curveId = curveId;
 		this.term = term;

@@ -1,9 +1,14 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.Rating;
+import com.nnk.springboot.service.RatingService;
 
 import jakarta.validation.Valid;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,12 +19,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class RatingController {
-    // TODO: Inject Rating service
+    
+	@Autowired
+	RatingService ratingService;
 
     @RequestMapping("/rating/list")
-    public String home(Model model)
+    public String home(Model model, Authentication auth )
     {
-        // TODO: find all Rating, add to model
+        List<Rating> ratings = ratingService.getAllRatings();
+        
+        model.addAttribute("ratings", ratings);
+        model.addAttribute("username", auth.getName());
+    	
         return "rating/list";
     }
 

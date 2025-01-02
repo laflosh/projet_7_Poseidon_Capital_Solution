@@ -79,6 +79,11 @@ public class Trade {
 	@Column(name = "side")
 	String side;
 	
+	//Default constructor
+	public Trade() {
+		
+	}
+	
 	public Trade(String account, String type) {
 		
 		this.account = account;

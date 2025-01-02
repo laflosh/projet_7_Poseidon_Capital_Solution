@@ -81,6 +81,11 @@ public class BidList {
 	@Column(name = "side")
 	private String side;
 	
+	//Default constructor
+	public BidList() {
+		
+	}
+	
 	public BidList(String account, String type, double bidQuantity) {
 		this.account = account;
 		this.type = type;

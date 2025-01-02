@@ -81,9 +81,9 @@ CREATE TABLE RuleName (
 
 CREATE TABLE Users (
   Id INT NOT NULL AUTO_INCREMENT,
+  fullname VARCHAR(125),
   username VARCHAR(125),
   password VARCHAR(125),
-  fullname VARCHAR(125),
   role VARCHAR(125),
   PRIMARY KEY (Id)
 );

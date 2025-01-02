@@ -19,8 +19,8 @@ public class Rating {
 	@Column(name = "moodysRating")
 	private String moodysRating;
 	
-	@Column(name = "sandRating")
-	private String sandRating;
+	@Column(name = "sandPRating")
+	private String sandPRating;
 	
 	@Column(name = "fitchRating")
 	private String fitchRating;
@@ -28,9 +28,14 @@ public class Rating {
 	@Column(name = "orderNumber")
 	private Integer orderNumber;
 	
-	public Rating(String moodysRating, String sandRating, String fitchRating, Integer orderNumber){
+	//Default constructor
+	public Rating() {
+		
+	}
+	
+	public Rating(String moodysRating, String sandPRating, String fitchRating, Integer orderNumber){
 		this.moodysRating = moodysRating;
-		this.sandRating = sandRating;
+		this.sandPRating = sandPRating;
 		this.fitchRating = fitchRating;
 		this.orderNumber = orderNumber;
 	}
@@ -51,12 +56,12 @@ public class Rating {
 		this.moodysRating = moodysRating;
 	}
 
-	public String getSandRating() {
-		return sandRating;
+	public String getSandPRating() {
+		return sandPRating;
 	}
 
-	public void setSandRating(String sandRating) {
-		this.sandRating = sandRating;
+	public void setSandPRating(String sandPRating) {
+		this.sandPRating = sandPRating;
 	}
 
 	public String getFitchRating() {
