@@ -100,6 +100,11 @@ public class RuleNameController {
     	
     }
 
+    /**
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/ruleName/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
     	
@@ -112,6 +117,14 @@ public class RuleNameController {
         return "ruleName/update";
     }
 
+    /**
+     * @param id
+     * @param ruleName
+     * @param result
+     * @param model
+     * @param auth
+     * @return
+     */
     @PostMapping("/ruleName/update/{id}")
     public String updateRuleName(@PathVariable("id") Integer id, @Valid RuleName ruleName, BindingResult result, Model model, Authentication auth) {
     	
@@ -142,9 +155,26 @@ public class RuleNameController {
     	
     }
 
+    /**
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/ruleName/delete/{id}")
     public String deleteRuleName(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find RuleName by Id and delete the RuleName, return to Rule list
-        return "redirect:/ruleName/list";
+    	
+    	log.info("Trying to delete a existing rating in the database with id : {}",id);
+    	
+    	boolean isDelete = ruleNameService.deleteRuleName(id);
+    	
+    	if(isDelete == true) {
+    		
+            return "redirect:/ruleName/list";
+    		
+    	}
+    	
+		return null;
+
     }
+    
 }

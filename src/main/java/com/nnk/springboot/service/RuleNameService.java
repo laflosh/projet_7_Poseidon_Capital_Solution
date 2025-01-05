@@ -24,6 +24,9 @@ public class RuleNameService {
 	RuleNameRepository ruleNameRepository;
 	
 
+	/**
+	 * @return
+	 */
 	public List<RuleName> getAllRuleNames() {
 		
 		List<RuleName> ruleNames = ruleNameRepository.findAll();
@@ -32,6 +35,10 @@ public class RuleNameService {
 		
 	}
 	
+	/**
+	 * @param id
+	 * @return
+	 */
 	public RuleName getRuleNameById(Integer id) {
 		
 		RuleName ruleName = ruleNameRepository.findById(id)
@@ -41,12 +48,18 @@ public class RuleNameService {
 		
 	}
 
+	/**
+	 * @param ruleName
+	 */
 	public void addNewRuleName(@Valid RuleName ruleName) {
 		
 		ruleNameRepository.save(ruleName);
 		
 	}
 
+	/**
+	 * @param ruleName
+	 */
 	public void updateRuleName(@Valid RuleName ruleName) {
 		
 		RuleName existingRuleName = getRuleNameById(ruleName.getId());
@@ -60,6 +73,23 @@ public class RuleNameService {
 		
 		ruleNameRepository.save(existingRuleName);
 		
+	}
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	public boolean deleteRuleName(Integer id) {
+		
+		if(ruleNameRepository.existsById(id)) {
+			
+			ruleNameRepository.deleteById(id);
+			
+			return true;
+			
+		}
+		
+		return false;
 	}
 	
 }
