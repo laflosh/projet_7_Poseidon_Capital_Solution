@@ -42,7 +42,7 @@ public class RatingService {
 	public Rating getRatingById(Integer id) {
 		
 		Rating rating = ratingRepository.findById(id)
-				.orElseThrow(() -> new RuntimeException("Rating not found."));;
+				.orElseThrow(() -> new RuntimeException("Rating not found."));
 		
 		return rating;
 	}

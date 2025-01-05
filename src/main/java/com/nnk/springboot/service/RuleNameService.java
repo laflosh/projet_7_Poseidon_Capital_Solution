@@ -29,6 +29,16 @@ public class RuleNameService {
 		List<RuleName> ruleNames = ruleNameRepository.findAll();
 		
 		return ruleNames;
+		
+	}
+	
+	public RuleName getRuleNameById(Integer id) {
+		
+		RuleName ruleName = ruleNameRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("RuleName not found."));
+		
+		return ruleName;
+		
 	}
 
 	public void addNewRuleName(@Valid RuleName ruleName) {
@@ -37,5 +47,19 @@ public class RuleNameService {
 		
 	}
 
+	public void updateRuleName(@Valid RuleName ruleName) {
+		
+		RuleName existingRuleName = getRuleNameById(ruleName.getId());
+		
+		existingRuleName.setName(ruleName.getName());
+		existingRuleName.setDescription(ruleName.getDescription());
+		existingRuleName.setJson(ruleName.getJson());
+		existingRuleName.setTemplate(ruleName.getTemplate());
+		existingRuleName.setSqlStr(ruleName.getSqlStr());
+		existingRuleName.setSqlPart(ruleName.getSqlPart());
+		
+		ruleNameRepository.save(existingRuleName);
+		
+	}
 	
 }

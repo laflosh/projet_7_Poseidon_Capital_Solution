@@ -38,6 +38,7 @@ public class RuleNameController {
     @RequestMapping("/ruleName/list")
     public String home(Model model, Authentication auth)
     {
+    	log.info("Trying to get all rulenames in the database.");
     	
     	List<RuleName> ruleNames = ruleNameService.getAllRuleNames();
     	
@@ -101,14 +102,44 @@ public class RuleNameController {
 
     @GetMapping("/ruleName/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get RuleName by Id and to model then show to the form
+    	
+    	log.info("Acces to the update rulename page");
+    	
+    	RuleName rulename = ruleNameService.getRuleNameById(id);
+    	
+    	model.addAttribute("ruleName", rulename);
+    	
         return "ruleName/update";
     }
 
     @PostMapping("/ruleName/update/{id}")
-    public String updateRuleName(@PathVariable("id") Integer id, @Valid RuleName ruleName, BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update RuleName and return RuleName list
-        return "redirect:/ruleName/list";
+    public String updateRuleName(@PathVariable("id") Integer id, @Valid RuleName ruleName, BindingResult result, Model model, Authentication auth) {
+    	
+    	if(result.hasErrors()) {
+    		
+    		log.info("Error in the rulename object : {}", result.getAllErrors());
+    		return "ruleName/update";
+    		
+    	}
+    	
+    	try {
+    		
+    		log.info("Trying to update a existing rulename in the database : {}", ruleName);
+    		
+    		ruleNameService.updateRuleName(ruleName);
+    		
+            model.addAttribute("ruleNames", ruleNameService.getAllRuleNames());
+            model.addAttribute("username", auth.getName());
+    		
+            return "redirect:/ruleName/list";
+    		
+    	} catch(Exception e) {
+    		
+    		log.info("Error during updating the rulename object : {}", e);
+    		return "ruleName/update";
+    		
+    	}
+    	
     }
 
     @GetMapping("/ruleName/delete/{id}")
