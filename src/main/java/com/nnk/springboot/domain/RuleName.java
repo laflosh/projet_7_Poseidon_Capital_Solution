@@ -6,32 +6,46 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "rulename")
 public class RuleName {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	Integer id;
 	
 	@Column(name = "name")
+	@NotNull
+	@NotEmpty
 	String name;
 	
 	@Column(name = "description")
+	@NotNull
+	@NotEmpty
 	String description;
 	
 	@Column(name = "json")
+	@NotNull
+	@NotEmpty
 	String json;
 	
 	@Column(name = "template")
+	@NotNull
+	@NotEmpty
 	String template;
 	
 	@Column(name = "sqlStr")
+	@NotNull
+	@NotEmpty
 	String sqlStr;
 	
 	@Column(name = "sqlPart")
+	@NotNull
+	@NotEmpty
 	String sqlPart;
 	
 	//Default constructor
