@@ -1,5 +1,7 @@
 package com.nnk.springboot.service;
 
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +22,20 @@ public class RuleNameService {
 	
 	@Autowired
 	RuleNameRepository ruleNameRepository;
+	
+
+	public List<RuleName> getAllRuleNames() {
+		
+		List<RuleName> ruleNames = ruleNameRepository.findAll();
+		
+		return ruleNames;
+	}
 
 	public void addNewRuleName(@Valid RuleName ruleName) {
 		
 		ruleNameRepository.save(ruleName);
 		
 	}
+
 	
 }
