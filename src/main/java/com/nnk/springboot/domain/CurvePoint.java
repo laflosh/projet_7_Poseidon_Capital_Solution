@@ -8,26 +8,34 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "curvepoint")
 public class CurvePoint {
    
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
 	
 	@Column(name = "curveId")
+	@NotNull
+	@NotEmpty
 	private Integer curveId;
 	
 	@Column(name = "asOfDate")
 	private Timestamp asOfDate;
 	
 	@Column(name = "term")
+	@NotNull
+	@NotEmpty
 	private double term;
 	
 	@Column(name = "value")
+	@NotNull
+	@NotEmpty
 	private double value;
 	
 	@Column(name = "creationDate")

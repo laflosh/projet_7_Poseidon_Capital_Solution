@@ -1,9 +1,17 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.CurvePoint;
+import com.nnk.springboot.service.CurvePointService;
+import com.nnk.springboot.service.RuleNameService;
 
 import jakarta.validation.Valid;
 
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,14 +21,26 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class CurveController {
-    // TODO: Inject Curve Point service
+public class CurvePointController {
+
+	private static  final Logger log = LogManager.getLogger(CurvePointController.class);
+	
+	@Autowired
+	CurvePointService curvePointService;
 
     @RequestMapping("/curvePoint/list")
-    public String home(Model model)
+    public String home(Model model, Authentication auth)
     {
-        // TODO: find all Curve Point, add to model
+    	
+    	log.info("Trying to get all curvepoints in the database.");
+        
+    	List<CurvePoint> curvePoints = curvePointService.getAllCurvePoints();
+    	
+    	model.addAttribute("curvePoints", curvePoints);
+    	model.addAttribute("username", auth.getName());
+    	
         return "curvePoint/list";
+        
     }
 
     @GetMapping("/curvePoint/add")
