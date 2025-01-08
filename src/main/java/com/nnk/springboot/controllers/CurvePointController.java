@@ -2,7 +2,6 @@ package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.service.CurvePointService;
-import com.nnk.springboot.service.RuleNameService;
 
 import jakarta.validation.Valid;
 
@@ -20,6 +19,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * 
+ */
 @Controller
 public class CurvePointController {
 
@@ -44,27 +46,67 @@ public class CurvePointController {
     }
 
     @GetMapping("/curvePoint/add")
-    public String addBidForm(CurvePoint bid) {
+    public String addBidForm(CurvePoint bid, Model model) {
+    	
+    	log.info("Acces to the adding curvepoint page");
+    	
+    	model.addAttribute("curvePoint", new CurvePoint());
+    	
         return "curvePoint/add";
+        
     }
 
     @PostMapping("/curvePoint/validate")
-    public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Curve list
-        return "curvePoint/add";
+    public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model, Authentication auth) {
+ 
+    	if(result.hasErrors()) {
+    		
+    		log.info("Error in the curvepoint object : {}", result.getAllErrors());
+            return "curvePoint/add";
+    		
+    	}
+    	
+    	try {
+    		
+    		log.info("Trying to save a new curvepoint in the database : {}", curvePoint);
+    		
+    		curvePointService.addNewCurvePoint(curvePoint);
+    		
+    		model.addAttribute("curvePoints", curvePointService.getAllCurvePoints());
+    		model.addAttribute("username", auth.getName());
+    		
+            return "curvePoint/list";
+    		
+    	} catch(Exception e) {
+    		
+    		log.info("Error during saving the curvepoint object : {}", e);
+            return "curvePoint/add";
+    		
+    	}
+    	
+        
     }
 
     @GetMapping("/curvePoint/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get CurvePoint by Id and to model then show to the form
+       
+    	log.info("Acces to the update curvepoint page");
+    	
+    	CurvePoint curvePoint = curvePointService.getCurvePointById(id);
+    	
+    	model.addAttribute("curvePoint", curvePoint);
+    	
         return "curvePoint/update";
+        
     }
 
     @PostMapping("/curvePoint/update/{id}")
-    public String updateBid(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint,
-                             BindingResult result, Model model) {
+    public String updateBid(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint, BindingResult result, Model model, Authentication auth) {
         // TODO: check required fields, if valid call service to update Curve and return Curve list
+    	
+    	
         return "redirect:/curvePoint/list";
+        
     }
 
     @GetMapping("/curvePoint/delete/{id}")

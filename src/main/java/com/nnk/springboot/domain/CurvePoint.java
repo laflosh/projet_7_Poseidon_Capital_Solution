@@ -8,7 +8,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -21,8 +20,6 @@ public class CurvePoint {
 	private Integer id;
 	
 	@Column(name = "curveId")
-	@NotNull
-	@NotEmpty
 	private Integer curveId;
 	
 	@Column(name = "asOfDate")
@@ -30,12 +27,10 @@ public class CurvePoint {
 	
 	@Column(name = "term")
 	@NotNull
-	@NotEmpty
 	private double term;
 	
 	@Column(name = "value")
 	@NotNull
-	@NotEmpty
 	private double value;
 	
 	@Column(name = "creationDate")

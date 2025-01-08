@@ -10,6 +10,11 @@ import org.springframework.stereotype.Service;
 import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.repositories.CurvePointRepository;
 
+import jakarta.validation.Valid;
+
+/**
+ * 
+ */
 @Service
 public class CurvePointService {
 
@@ -26,6 +31,19 @@ public class CurvePointService {
 		
 	}
 	
-	
+	public CurvePoint getCurvePointById(Integer id) {
+		
+		CurvePoint curvePoint = curvePointRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("CurvePoint not found"));
+		
+		return curvePoint;
+		
+	}
+
+	public void addNewCurvePoint(@Valid CurvePoint curvePoint) {
+		
+		curvePointRepository.save(curvePoint);
+		
+	}
 	
 }
