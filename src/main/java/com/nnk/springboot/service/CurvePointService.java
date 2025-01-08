@@ -45,5 +45,16 @@ public class CurvePointService {
 		curvePointRepository.save(curvePoint);
 		
 	}
+
+	public void updateCurvePoint(@Valid CurvePoint curvePoint) {
+		
+		CurvePoint existingCurvePoint = getCurvePointById(curvePoint.getId());
+		
+		existingCurvePoint.setTerm(curvePoint.getTerm());
+		existingCurvePoint.setValue(curvePoint.getValue());
+		
+		curvePointRepository.save(existingCurvePoint);
+		
+	}
 	
 }

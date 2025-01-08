@@ -104,8 +104,30 @@ public class CurvePointController {
     public String updateBid(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint, BindingResult result, Model model, Authentication auth) {
         // TODO: check required fields, if valid call service to update Curve and return Curve list
     	
+    	if(result.hasErrors()) {
+    		
+    		log.info("Error in the curvepoint object : {}", result.getAllErrors());
+    		return"curvePoint/update";
+    		
+    	}
     	
-        return "redirect:/curvePoint/list";
+    	try {
+    		
+    		log.info("Trying to update a existing curvepoint in the database : {}", curvePoint);
+    		
+    		curvePointService.updateCurvePoint(curvePoint);
+    		
+    		model.addAttribute("curvePoints", curvePointService.getAllCurvePoints());
+    		model.addAttribute("username", auth.getName());
+    		
+            return "redirect:/curvePoint/list";
+    		
+    	} catch(Exception e) {
+    		
+    		log.info("Error during updating the curvepoint object : {}", e);
+    		return"curvePoint/update";
+    		
+    	}
         
     }
 
