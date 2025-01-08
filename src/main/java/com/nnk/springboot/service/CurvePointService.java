@@ -23,6 +23,9 @@ public class CurvePointService {
 	@Autowired
 	CurvePointRepository curvePointRepository;
 
+	/**
+	 * @return
+	 */
 	public List<CurvePoint> getAllCurvePoints() {
 		
 		List<CurvePoint> curvePoints = curvePointRepository.findAll();
@@ -31,6 +34,10 @@ public class CurvePointService {
 		
 	}
 	
+	/**
+	 * @param id
+	 * @return
+	 */
 	public CurvePoint getCurvePointById(Integer id) {
 		
 		CurvePoint curvePoint = curvePointRepository.findById(id)
@@ -40,12 +47,18 @@ public class CurvePointService {
 		
 	}
 
+	/**
+	 * @param curvePoint
+	 */
 	public void addNewCurvePoint(@Valid CurvePoint curvePoint) {
 		
 		curvePointRepository.save(curvePoint);
 		
 	}
 
+	/**
+	 * @param curvePoint
+	 */
 	public void updateCurvePoint(@Valid CurvePoint curvePoint) {
 		
 		CurvePoint existingCurvePoint = getCurvePointById(curvePoint.getId());
@@ -55,6 +68,23 @@ public class CurvePointService {
 		
 		curvePointRepository.save(existingCurvePoint);
 		
+	}
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	public boolean deleteCurvePoint(Integer id) {
+		
+		if(curvePointRepository.existsById(id)) {
+			
+			curvePointRepository.deleteById(id);
+			
+			return true;
+			
+		}
+		
+		return false;
 	}
 	
 }
