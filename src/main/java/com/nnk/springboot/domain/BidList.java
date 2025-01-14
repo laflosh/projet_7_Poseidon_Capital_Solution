@@ -8,22 +8,29 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "bidlist")
 public class BidList {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "BidListId")
 	private Integer bidListId;
-	
+
+	@NotNull
+	@NotEmpty
 	@Column(name = "account")
 	private String account;
 	
+	@NotNull
+	@NotEmpty
 	@Column(name = "type")
 	private String type;
 	
+	@NotNull
 	@Column(name = "bidQuantity")
 	private double bidQuantity;
 	

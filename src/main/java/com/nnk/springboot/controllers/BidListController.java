@@ -27,10 +27,15 @@ public class BidListController {
 	@Autowired
 	BidListService bidListService;
 
+    /**
+     * @param model
+     * @param auth
+     * @return
+     */
     @RequestMapping("/bidList/list")
     public String home(Model model, Authentication auth)
     {
-    	log.info("Trying to get all bidlists in database");
+    	log.info("Trying to get all bidlists in database.");
 
     	List<BidList> bidLists = bidListService.getAllBidLists();
     	
@@ -40,15 +45,50 @@ public class BidListController {
         
     }
 
+    /**
+     * @param bid
+     * @param model
+     * @return
+     */
     @GetMapping("/bidList/add")
-    public String addBidForm(BidList bid) {
+    public String addBidForm(BidList bid, Model model) {
+    	
+    	log.info("Cacces to the bidlist add page.");
+    	
+    	model.addAttribute("bidList", new BidList());
+    	
         return "bidList/add";
+        
     }
 
     @PostMapping("/bidList/validate")
-    public String validate(@Valid BidList bid, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return bid list
-        return "bidList/add";
+    public String validate(@Valid BidList bid, BindingResult result, Model model, Authentication auth) {
+    	
+    	if(result.hasErrors()) {
+    		
+    		log.info("Error in the bidlist object : {} .", result.getAllErrors());
+    		return "bidList/add";
+    		
+    	}
+    	
+    	try {
+    		
+    		log.info("Trying to save a new bidlist in the database : {} .", bid);
+    		
+    		bidListService.addNewBidList(bid);
+    		
+    		model.addAttribute("bidLists", bidListService.getAllBidLists());
+    		model.addAttribute("username", auth.getName());
+    		
+    		return "bidList/list";
+    		
+    	} catch (Exception e) {
+    		
+    		log.info("Error during saving the bidlist object : {} .", e);
+    		return "bidList/add";
+    		
+    	}
+        
     }
 
     @GetMapping("/bidList/update/{id}")
