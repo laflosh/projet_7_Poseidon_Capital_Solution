@@ -1,9 +1,16 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.Trade;
+import com.nnk.springboot.service.TradeService;
 
 import jakarta.validation.Valid;
 
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,13 +21,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class TradeController {
-    // TODO: Inject Trade service
+
+	private static final Logger log = LogManager.getLogger(TradeController.class);
+	
+	@Autowired
+	TradeService tradeService;
 
     @RequestMapping("/trade/list")
-    public String home(Model model)
+    public String home(Model model, Authentication auth)
     {
-        // TODO: find all Trade, add to model
+    	
+    	log.info("Trying to get all trades in the database.");
+        
+    	List<Trade> trades = tradeService.getAllTrades();
+    	
+    	model.addAttribute("trades", trades);
+    	model.addAttribute("username", auth.getName());
+    	
         return "trade/list";
+        
     }
 
     @GetMapping("/trade/add")
