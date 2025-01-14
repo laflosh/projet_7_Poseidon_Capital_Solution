@@ -40,7 +40,8 @@ public class BidListController {
     	List<BidList> bidLists = bidListService.getAllBidLists();
     	
     	model.addAttribute("bidLists", bidLists); 
-    	model.addAttribute("username", auth.getName());    	
+    	model.addAttribute("username", auth.getName());  
+    	
         return "bidList/list";
         
     }
@@ -51,9 +52,9 @@ public class BidListController {
      * @return
      */
     @GetMapping("/bidList/add")
-    public String addBidForm(BidList bid, Model model) {
+    public String addBidForm(BidList bidList, Model model) {
     	
-    	log.info("Cacces to the bidlist add page.");
+    	log.info("Access to the bidlist add page.");
     	
     	model.addAttribute("bidList", new BidList());
     	
@@ -61,8 +62,15 @@ public class BidListController {
         
     }
 
+    /**
+     * @param bid
+     * @param result
+     * @param model
+     * @param auth
+     * @return
+     */
     @PostMapping("/bidList/validate")
-    public String validate(@Valid BidList bid, BindingResult result, Model model, Authentication auth) {
+    public String validate(@Valid BidList bidList, BindingResult result, Model model, Authentication auth) {
     	
     	if(result.hasErrors()) {
     		
@@ -73,9 +81,9 @@ public class BidListController {
     	
     	try {
     		
-    		log.info("Trying to save a new bidlist in the database : {} .", bid);
+    		log.info("Trying to save a new bidlist in the database : {} .", bidList);
     		
-    		bidListService.addNewBidList(bid);
+    		bidListService.addNewBidList(bidList);
     		
     		model.addAttribute("bidLists", bidListService.getAllBidLists());
     		model.addAttribute("username", auth.getName());
@@ -91,16 +99,59 @@ public class BidListController {
         
     }
 
+    /**
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get Bid by Id and to model then show to the form
+        
+    	log.info("Access to the bidlist update page.");
+    	
+    	BidList bidList = bidListService.getBidListById(id);
+    	
+    	model.addAttribute("bidList", bidList);
+    	
         return "bidList/update";
     }
 
+    /**
+     * @param id
+     * @param bidList
+     * @param result
+     * @param model
+     * @param auth
+     * @return
+     */
     @PostMapping("/bidList/update/{id}")
-    public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList, BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Bid and return list Bid
-        return "redirect:/bidList/list";
+    public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList, BindingResult result, Model model, Authentication auth) {
+        
+    	if(result.hasErrors()) {
+    		
+    		log.info("Error in the bidlist object : {} .", result.getAllErrors());
+    		return"bidList/update";
+    		
+    	}
+    	
+    	try {
+    		
+    		log.info("Trying to update the existing bidlist in database : {} .", bidList);
+    		
+    		bidListService.updateBidList(bidList);
+    		
+    		model.addAttribute("bidLists", bidListService.getAllBidLists());
+    		model.addAttribute("username", auth.getName());
+    		
+            return "redirect:/bidList/list";
+    		
+    	} catch (Exception e) {
+    		
+    		log.info("Error during updating the bidlist object : {} .", e);
+    		return"bidList/update";
+    		
+    	}
+        
     }
 
     @GetMapping("/bidList/delete/{id}")

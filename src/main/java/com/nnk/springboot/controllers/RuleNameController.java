@@ -56,7 +56,7 @@ public class RuleNameController {
     @GetMapping("/ruleName/add")
     public String addRuleForm(RuleName ruleName, Model model) {
     	
-    	log.info("Acces to the adding rulename page");
+    	log.info("Access to the adding rulename page");
     	
     	model.addAttribute("rulename", new RuleName());
     	
@@ -108,7 +108,7 @@ public class RuleNameController {
     @GetMapping("/ruleName/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
     	
-    	log.info("Acces to the update rulename page");
+    	log.info("Access to the update rulename page");
     	
     	RuleName rulename = ruleNameService.getRuleNameById(id);
     	

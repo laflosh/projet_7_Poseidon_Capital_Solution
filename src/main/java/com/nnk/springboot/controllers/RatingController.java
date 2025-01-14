@@ -57,7 +57,7 @@ public class RatingController {
     @GetMapping("/rating/add")
     public String addRatingForm(Rating rating, Model model) {
     	
-    	log.info("Acces to the adding rating page");
+    	log.info("Access to the adding rating page");
     	
     	model.addAttribute("rating", new Rating());
     	
@@ -110,7 +110,7 @@ public class RatingController {
     @GetMapping("/rating/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
     	
-    	log.info("Acces to the update rating page");
+    	log.info("Access to the update rating page");
     	
     	Rating rating  = ratingService.getRatingById(id);
     	

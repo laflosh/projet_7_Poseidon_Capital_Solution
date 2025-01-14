@@ -58,7 +58,7 @@ public class CurvePointController {
     @GetMapping("/curvePoint/add")
     public String addCurvePointForm(CurvePoint curvePoint, Model model) {
     	
-    	log.info("Acces to the adding curvepoint page");
+    	log.info("Access to the adding curvepoint page");
     	
     	model.addAttribute("curvePoint", new CurvePoint());
     	
@@ -112,7 +112,7 @@ public class CurvePointController {
     @GetMapping("/curvePoint/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
        
-    	log.info("Acces to the update curvepoint page");
+    	log.info("Access to the update curvepoint page");
     	
     	CurvePoint curvePoint = curvePointService.getCurvePointById(id);
     	

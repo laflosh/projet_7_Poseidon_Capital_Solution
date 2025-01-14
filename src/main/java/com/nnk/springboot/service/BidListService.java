@@ -20,16 +20,50 @@ public class BidListService {
 	@Autowired
 	BidListRepository bidListRepository;
 
+	/**
+	 * @return
+	 */
 	public List<BidList> getAllBidLists() {
 		
 		List<BidList> bidLists = bidListRepository.findAll();
 		
 		return bidLists;
 	}
+	
+	/**
+	 * @param id
+	 * @return
+	 */
+	public BidList getBidListById(Integer id) {
+		
+		BidList bidList = bidListRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("BidList not found."));
+		
+		return bidList;
+		
+	}
 
+	/**
+	 * @param bid
+	 */
 	public void addNewBidList(@Valid BidList bid) {
 
 		bidListRepository.save(bid);
+		
+	}
+
+	/**
+	 * @param bidList
+	 */
+	public void updateBidList(@Valid BidList bidList) {
+		
+		BidList existingBidList = getBidListById(bidList.getBidListId());
+		
+		existingBidList.setAccount(bidList.getAccount());
+		existingBidList.setType(bidList.getType());
+		existingBidList.setBidQuantity(bidList.getBidQuantity());
+		
+		bidListRepository.save(existingBidList);
 		
 	}
 
