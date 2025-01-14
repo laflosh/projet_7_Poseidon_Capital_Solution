@@ -67,4 +67,22 @@ public class BidListService {
 		
 	}
 
+	/**
+	 * @param id
+	 * @return
+	 */
+	public boolean deleteBidList(Integer id) {
+
+		if(bidListRepository.existsById(id)) {
+			
+			bidListRepository.deleteById(id);
+			
+			return true;
+			
+		}
+		
+		return false;
+		
+	}
+
 }

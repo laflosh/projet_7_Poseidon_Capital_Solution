@@ -154,9 +154,26 @@ public class BidListController {
         
     }
 
+    /**
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/bidList/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find Bid by Id and delete the bid, return to Bid list
-        return "redirect:/bidList/list";
+
+    	log.info("Trying to delete an existing bidlist in the database with id : {} .", id);
+
+       	boolean isDelete = bidListService.deleteBidList(id);
+    	
+       	if(isDelete == true) {
+       		
+       		return "redirect:/bidList/list";
+       		
+       	}
+       	
+        return null;
+        
     }
+    
 }

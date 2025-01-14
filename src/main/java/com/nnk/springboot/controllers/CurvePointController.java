@@ -170,9 +170,9 @@ public class CurvePointController {
     	
        	log.info("Trying to delete a existing curvepoint in the database with id : {}",id);
        	
-       	boolean idDelete = curvePointService.deleteCurvePoint(id);
+       	boolean isDelete = curvePointService.deleteCurvePoint(id);
     	
-       	if(idDelete == true) {
+       	if(isDelete == true) {
        		
        		return "redirect:/curvePoint/list";
        		
