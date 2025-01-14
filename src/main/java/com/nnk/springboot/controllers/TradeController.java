@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * 
+ */
 @Controller
 public class TradeController {
 
@@ -27,6 +30,11 @@ public class TradeController {
 	@Autowired
 	TradeService tradeService;
 
+    /**
+     * @param model
+     * @param auth
+     * @return
+     */
     @RequestMapping("/trade/list")
     public String home(Model model, Authentication auth)
     {
@@ -42,15 +50,57 @@ public class TradeController {
         
     }
 
+    /**
+     * @param trade
+     * @param model
+     * @return
+     */
     @GetMapping("/trade/add")
-    public String addUser(Trade bid) {
+    public String addUser(Trade trade, Model model) {
+    	
+    	log.info("Access to the trade add page.");
+    	
+    	model.addAttribute("trade", new Trade());
+    	
         return "trade/add";
+        
     }
 
+    /**
+     * @param trade
+     * @param result
+     * @param model
+     * @param auth
+     * @return
+     */
     @PostMapping("/trade/validate")
-    public String validate(@Valid Trade trade, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Trade list
-        return "trade/add";
+    public String validate(@Valid Trade trade, BindingResult result, Model model, Authentication auth) {
+
+    	if(result.hasErrors()) {
+    		
+    		log.info("Error in the trade object : {} .", result.getAllErrors());
+    		return "trade/add";
+    		
+    	}
+    	
+    	try {
+    		
+    		log.info("Trying to save a new trade in database : {} .", trade);
+    		
+    		tradeService.addNewTrade(trade);
+    		
+    		model.addAttribute("trades", tradeService.getAllTrades());
+    		model.addAttribute("username", auth.getName());
+    		
+    		return"trade/list";
+    		
+    	} catch (Exception e) {
+    		
+    		log.info("Error during saving the trade object : {} .", e);
+    		return"trade/add";
+    		
+    	}
+        
     }
 
     @GetMapping("/trade/update/{id}")

@@ -10,6 +10,11 @@ import org.springframework.stereotype.Service;
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.repositories.TradeRepository;
 
+import jakarta.validation.Valid;
+
+/**
+ * 
+ */
 @Service
 public class TradeService {
 
@@ -18,11 +23,23 @@ public class TradeService {
 	@Autowired
 	TradeRepository tradeRepository;
 
+	/**
+	 * @return
+	 */
 	public List<Trade> getAllTrades() {
 
 		List<Trade> trades = tradeRepository.findAll();
 
 		return trades;
+		
+	}
+
+	/**
+	 * @param trade
+	 */
+	public void addNewTrade(@Valid Trade trade) {
+
+		tradeRepository.save(trade);
 		
 	}
 	

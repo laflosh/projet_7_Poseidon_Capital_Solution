@@ -12,6 +12,9 @@ import com.nnk.springboot.repositories.BidListRepository;
 
 import jakarta.validation.Valid;
 
+/**
+ * 
+ */
 @Service
 public class BidListService {
 	

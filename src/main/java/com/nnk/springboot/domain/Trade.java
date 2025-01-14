@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 import java.sql.Timestamp;
 
@@ -15,69 +17,74 @@ import java.sql.Timestamp;
 public class Trade {
     
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "tradeId")
-	Integer tradeId;
+	private Integer tradeId;
 	
+	@NotNull
+	@NotEmpty
 	@Column(name = "account")
-	String account;
+	private String account;
 	
+	@NotNull
+	@NotEmpty
 	@Column(name = "type")
-	String type;
+	private String type;
 	
+	@NotNull
 	@Column(name = "buyQuantity")
-	Double buyQuantity;
+	private Double buyQuantity;
 	
 	@Column(name = "sellQuantity")
-	Double sellQuantity;
+	private Double sellQuantity;
 	
 	@Column(name = "buyPrice")
-	Double buyPrice;
+	private Double buyPrice;
 	
 	@Column(name = "sellPrice")
-	Double sellPrice;
+	private Double sellPrice;
 	
 	@Column(name = "benchmark")
-	String benchmark;
+	private String benchmark;
 	
 	@Column(name = "tradeDate")
-	Timestamp tradeDate;
+	private Timestamp tradeDate;
 	
 	@Column(name = "security")
-	String security;
+	private String security;
 	
 	@Column(name = "status")
-	String status;
+	private String status;
 	
 	@Column(name = "trader")
-	String trader;
+	private String trader;
 	
 	@Column(name = "book")
-	String book;
+	private String book;
 	
 	@Column(name = "creationName")
-	String creationName;
+	private String creationName;
 	
 	@Column(name = "creationDate")
-	Timestamp creationDate;
+	private Timestamp creationDate;
 	
 	@Column(name = "revisionName")
-	String revisionName;
+	private String revisionName;
 	
 	@Column(name = "revisionDate")
-	Timestamp revsionDate;
+	private Timestamp revsionDate;
 	
 	@Column(name = "dealName")
-	String dealName;
+	private String dealName;
 	
 	@Column(name = "dealType")
-	String dealType;
+	private String dealType;
 	
 	@Column(name = "sourceListId")
-	String souceListId;
+	private String souceListId;
 	
 	@Column(name = "side")
-	String side;
+	private String side;
 	
 	//Default constructor
 	public Trade() {

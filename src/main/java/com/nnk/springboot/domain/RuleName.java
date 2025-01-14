@@ -16,37 +16,37 @@ public class RuleName {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	Integer id;
+	private Integer id;
 	
 	@Column(name = "name")
 	@NotNull
 	@NotEmpty
-	String name;
+	private String name;
 	
 	@Column(name = "description")
 	@NotNull
 	@NotEmpty
-	String description;
+	private String description;
 	
 	@Column(name = "json")
 	@NotNull
 	@NotEmpty
-	String json;
+	private String json;
 	
 	@Column(name = "template")
 	@NotNull
 	@NotEmpty
-	String template;
+	private String template;
 	
 	@Column(name = "sqlStr")
 	@NotNull
 	@NotEmpty
-	String sqlStr;
+	private String sqlStr;
 	
 	@Column(name = "sqlPart")
 	@NotNull
 	@NotEmpty
-	String sqlPart;
+	private String sqlPart;
 	
 	//Default constructor
 	public RuleName() {

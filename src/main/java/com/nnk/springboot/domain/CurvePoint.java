@@ -27,11 +27,11 @@ public class CurvePoint {
 	
 	@Column(name = "term")
 	@NotNull
-	private double term;
+	private Double term;
 	
 	@Column(name = "value")
 	@NotNull
-	private double value;
+	private Double value;
 	
 	@Column(name = "creationDate")
 	private Timestamp creationDate;
