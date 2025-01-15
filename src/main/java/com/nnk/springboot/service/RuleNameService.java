@@ -21,7 +21,7 @@ public class RuleNameService {
 	private static  final Logger log = LogManager.getLogger(RuleNameService.class);
 	
 	@Autowired
-	RuleNameRepository ruleNameRepository;
+	private RuleNameRepository ruleNameRepository;
 	
 
 	/**

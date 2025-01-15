@@ -21,7 +21,7 @@ public class TradeService {
 	private static final Logger log = LogManager.getLogger(TradeService.class);
 	
 	@Autowired
-	TradeRepository tradeRepository;
+	private TradeRepository tradeRepository;
 
 	/**
 	 * @return

@@ -21,7 +21,7 @@ public class CurvePointService {
 	private static  final Logger log = LogManager.getLogger(CurvePointService.class);
 	
 	@Autowired
-	CurvePointRepository curvePointRepository;
+	private CurvePointRepository curvePointRepository;
 
 	/**
 	 * @return

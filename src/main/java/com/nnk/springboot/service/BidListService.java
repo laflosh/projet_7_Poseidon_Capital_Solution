@@ -18,10 +18,10 @@ import jakarta.validation.Valid;
 @Service
 public class BidListService {
 	
-	private static  final Logger log = LogManager.getLogger(BidListService.class);
+	private static final Logger log = LogManager.getLogger(BidListService.class);
 	
 	@Autowired
-	BidListRepository bidListRepository;
+	private BidListRepository bidListRepository;
 
 	/**
 	 * @return

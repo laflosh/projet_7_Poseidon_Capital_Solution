@@ -28,7 +28,7 @@ public class RuleNameController {
 	private static  final Logger log = LogManager.getLogger(RuleNameController.class);
 
 	@Autowired
-	RuleNameService ruleNameService;
+	private RuleNameService ruleNameService;
 
     /**
      * @param model
@@ -137,7 +137,7 @@ public class RuleNameController {
     	
     	try {
     		
-    		log.info("Trying to update a existing rulename in the database : {}", ruleName);
+    		log.info("Trying to update a existing rulename in the database with id : {}", id);
     		
     		ruleNameService.updateRuleName(ruleName);
     		
@@ -161,13 +161,16 @@ public class RuleNameController {
      * @return
      */
     @GetMapping("/ruleName/delete/{id}")
-    public String deleteRuleName(@PathVariable("id") Integer id, Model model) {
+    public String deleteRuleName(@PathVariable("id") Integer id, Model model, Authentication auth) {
     	
     	log.info("Trying to delete a existing rating in the database with id : {}",id);
     	
     	boolean isDelete = ruleNameService.deleteRuleName(id);
     	
     	if(isDelete == true) {
+    		
+            model.addAttribute("ruleNames", ruleNameService.getAllRuleNames());
+            model.addAttribute("username", auth.getName());
     		
             return "redirect:/ruleName/list";
     		

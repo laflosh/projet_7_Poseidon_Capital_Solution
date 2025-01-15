@@ -28,7 +28,7 @@ public class BidListController {
 	private static  final Logger log = LogManager.getLogger(BidListController.class);
     
 	@Autowired
-	BidListService bidListService;
+	private BidListService bidListService;
 
     /**
      * @param model
@@ -139,7 +139,7 @@ public class BidListController {
     	
     	try {
     		
-    		log.info("Trying to update the existing bidlist in database : {} .", bidList);
+    		log.info("Trying to update the existing bidlist in database with id : {} .", id);
     		
     		bidListService.updateBidList(bidList);
     		
@@ -163,7 +163,7 @@ public class BidListController {
      * @return
      */
     @GetMapping("/bidList/delete/{id}")
-    public String deleteBid(@PathVariable("id") Integer id, Model model) {
+    public String deleteBid(@PathVariable("id") Integer id, Model model, Authentication auth) {
 
     	log.info("Trying to delete an existing bidlist in the database with id : {} .", id);
 
@@ -171,6 +171,9 @@ public class BidListController {
     	
        	if(isDelete == true) {
        		
+    		model.addAttribute("bidLists", bidListService.getAllBidLists());
+    		model.addAttribute("username", auth.getName());
+    		
        		return "redirect:/bidList/list";
        		
        	}

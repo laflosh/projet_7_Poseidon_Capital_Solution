@@ -28,7 +28,7 @@ public class RatingController {
 	private static  final Logger log = LogManager.getLogger(RatingController.class);
     
 	@Autowired
-	RatingService ratingService;
+	private RatingService ratingService;
 
     /**
      * @param model
@@ -140,7 +140,7 @@ public class RatingController {
     	
     	try {
     		
-    		log.info("Trying to update a existing rating in the database : {}", rating);
+    		log.info("Trying to update a existing rating in the database with id : {}", id);
     		
         	ratingService.updateRating(rating);
             
@@ -164,13 +164,16 @@ public class RatingController {
      * @return
      */
     @GetMapping("/rating/delete/{id}")
-    public String deleteRating(@PathVariable("id") Integer id, Model model) {
+    public String deleteRating(@PathVariable("id") Integer id, Model model, Authentication auth) {
     	
     	log.info("Trying to delete a existing rating in the database with id : {}",id);
     	
     	boolean isDelete = ratingService.deleteRating(id);
     	
     	if(isDelete == true) {
+    		
+            model.addAttribute("ratings", ratingService.getAllRatings());
+            model.addAttribute("username", auth.getName());
     		
     		return "redirect:/rating/list";
     		

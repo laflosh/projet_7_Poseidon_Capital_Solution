@@ -28,7 +28,7 @@ public class TradeController {
 	private static final Logger log = LogManager.getLogger(TradeController.class);
 	
 	@Autowired
-	TradeService tradeService;
+	private TradeService tradeService;
 
     /**
      * @param model
@@ -165,13 +165,16 @@ public class TradeController {
      * @return
      */
     @GetMapping("/trade/delete/{id}")
-    public String deleteTrade(@PathVariable("id") Integer id, Model model) {
+    public String deleteTrade(@PathVariable("id") Integer id, Model model, Authentication auth) {
 
     	log.info("Trying to delete an existing trade in database with id : {} .", id);
     	
     	boolean isDeleted = tradeService.deleteTrade(id);
     	
     	if(isDeleted == true) {
+    		
+        	model.addAttribute("trades", tradeService.getAllTrades());
+        	model.addAttribute("username", auth.getName());
     		
             return "redirect:/trade/list";
     		

@@ -28,7 +28,7 @@ public class CurvePointController {
 	private static  final Logger log = LogManager.getLogger(CurvePointController.class);
 	
 	@Autowired
-	CurvePointService curvePointService;
+	private CurvePointService curvePointService;
 
     /**
      * @param model
@@ -142,7 +142,7 @@ public class CurvePointController {
     	
     	try {
     		
-    		log.info("Trying to update a existing curvepoint in the database : {}", curvePoint);
+    		log.info("Trying to update an existing curvepoint in the database with id : {}", id);
     		
     		curvePointService.updateCurvePoint(curvePoint);
     		
@@ -166,7 +166,7 @@ public class CurvePointController {
      * @return
      */
     @GetMapping("/curvePoint/delete/{id}")
-    public String deleteCurvePoint(@PathVariable("id") Integer id, Model model) {
+    public String deleteCurvePoint(@PathVariable("id") Integer id, Model model, Authentication auth) {
     	
        	log.info("Trying to delete a existing curvepoint in the database with id : {}",id);
        	
@@ -174,6 +174,9 @@ public class CurvePointController {
     	
        	if(isDelete == true) {
        		
+    		model.addAttribute("curvePoints", curvePointService.getAllCurvePoints());
+    		model.addAttribute("username", auth.getName());
+    		
        		return "redirect:/curvePoint/list";
        		
        	}
