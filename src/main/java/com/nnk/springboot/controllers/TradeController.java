@@ -103,17 +103,60 @@ public class TradeController {
         
     }
 
+    /**
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/trade/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get Trade by Id and to model then show to the form
+
+    	log.info("Access to the update trade page");
+    	
+    	Trade trade = tradeService.getTradeById(id);
+    	
+    	model.addAttribute("trade", trade);
+    	
         return "trade/update";
+        
     }
 
+    /**
+     * @param id
+     * @param trade
+     * @param result
+     * @param model
+     * @param auth
+     * @return
+     */
     @PostMapping("/trade/update/{id}")
-    public String updateTrade(@PathVariable("id") Integer id, @Valid Trade trade,
-                             BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Trade and return Trade list
-        return "redirect:/trade/list";
+    public String updateTrade(@PathVariable("id") Integer id, @Valid Trade trade, BindingResult result, Model model, Authentication auth) {
+
+    	if(result.hasErrors()) {
+    		
+    		log.info("Error in the trade object : {}", result.getAllErrors());
+    		return"trade/update";
+    		
+    	}
+    	
+    	try {
+    		
+        	log.info("Trying to update the existing trade in the database with id : {} .", id);
+        	
+        	tradeService.updateTrade(trade);
+        	
+        	model.addAttribute("trades", tradeService.getAllTrades());
+        	model.addAttribute("username", auth.getName());
+        	
+            return "redirect:/trade/list";
+    		
+    	} catch(Exception e) {
+    		
+    		log.info("Error during updating the trade object : {} .", e);
+    		return"trade/update";
+    		
+    	}
+    	
     }
 
     @GetMapping("/trade/delete/{id}")

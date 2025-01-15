@@ -33,6 +33,19 @@ public class TradeService {
 		return trades;
 		
 	}
+	
+	/**
+	 * @param id
+	 * @return
+	 */
+	public Trade getTradeById(Integer id) {
+		
+		Trade trade = tradeRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("Trade not found"));
+		
+		return trade;
+		
+	}
 
 	/**
 	 * @param trade
@@ -40,6 +53,21 @@ public class TradeService {
 	public void addNewTrade(@Valid Trade trade) {
 
 		tradeRepository.save(trade);
+		
+	}
+
+	/**
+	 * @param trade
+	 */
+	public void updateTrade(@Valid Trade trade) {
+		
+		Trade existingTrade = getTradeById(trade.getTradeId());
+		
+		existingTrade.setAccount(trade.getAccount());
+		existingTrade.setType(trade.getType());
+		existingTrade.setBuyQuantity(trade.getBuyQuantity());
+		
+		tradeRepository.save(existingTrade);
 		
 	}
 	
