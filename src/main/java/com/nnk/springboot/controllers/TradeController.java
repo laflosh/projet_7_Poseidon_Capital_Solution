@@ -159,9 +159,25 @@ public class TradeController {
     	
     }
 
+    /**
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/trade/delete/{id}")
     public String deleteTrade(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find Trade by Id and delete the Trade, return to Trade list
-        return "redirect:/trade/list";
+
+    	log.info("Trying to delete an existing trade in database with id : {} .", id);
+    	
+    	boolean isDeleted = tradeService.deleteTrade(id);
+    	
+    	if(isDeleted == true) {
+    		
+            return "redirect:/trade/list";
+    		
+    	}
+    	
+    	return null;
+    	
     }
 }

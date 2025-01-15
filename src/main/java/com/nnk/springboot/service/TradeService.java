@@ -70,5 +70,23 @@ public class TradeService {
 		tradeRepository.save(existingTrade);
 		
 	}
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	public boolean deleteTrade(Integer id) {
+		
+		if(tradeRepository.existsById(id)) {
+			
+			tradeRepository.deleteById(id);
+			
+			return true;
+			
+		}
+		
+		return false;
+		
+	}
 	
 }

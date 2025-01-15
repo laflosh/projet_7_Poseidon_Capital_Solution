@@ -123,35 +123,35 @@ public class BidList {
 		this.type = type;
 	}
 
-	public double getBidQuantity() {
+	public Double getBidQuantity() {
 		return bidQuantity;
 	}
 
-	public void setBidQuantity(double bidQuantity) {
+	public void setBidQuantity(Double bidQuantity) {
 		this.bidQuantity = bidQuantity;
 	}
 
-	public double getAskQuantity() {
+	public Double getAskQuantity() {
 		return askQuantity;
 	}
 
-	public void setAskQuantity(double askQuantity) {
+	public void setAskQuantity(Double askQuantity) {
 		this.askQuantity = askQuantity;
 	}
 
-	public double getBid() {
+	public Double getBid() {
 		return bid;
 	}
 
-	public void setBid(double bid) {
+	public void setBid(Double bid) {
 		this.bid = bid;
 	}
 
-	public double getAsk() {
+	public Double getAsk() {
 		return ask;
 	}
 
-	public void setAsk(double ask) {
+	public void setAsk(Double ask) {
 		this.ask = ask;
 	}
 
