@@ -16,14 +16,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 
 public class PasswordEncodeTest {
-	
+
     @Test
     public void testPassword() {
-    	
+
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String pw = encoder.encode("123456");
         System.out.println("[ "+ pw + " ]");
-        
+
     }
-    
+
 }

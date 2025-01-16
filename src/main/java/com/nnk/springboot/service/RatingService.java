@@ -13,13 +13,13 @@ import com.nnk.springboot.repositories.RatingRepository;
 import jakarta.validation.Valid;
 
 /**
- * 
+ *
  */
 @Service
 public class RatingService {
-	
+
 	private static  final Logger log = LogManager.getLogger(RatingService.class);
-	
+
 	@Autowired
 	private RatingRepository ratingRepository;
 
@@ -29,20 +29,20 @@ public class RatingService {
 	public List<Rating> getAllRatings() {
 
 		List<Rating> ratings = ratingRepository.findAll();
-		
+
 		return ratings;
-		
+
 	}
-	
+
 	/**
 	 * @param id
 	 * @return
 	 */
 	public Rating getRatingById(Integer id) {
-		
+
 		Rating rating = ratingRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Rating not found."));
-		
+
 		return rating;
 	}
 
@@ -50,25 +50,36 @@ public class RatingService {
 	 * @param rating
 	 */
 	public void addNewRating(@Valid Rating rating) {
-		
+
 		ratingRepository.save(rating);
-		
+
 	}
 
 	/**
 	 * @param rating
 	 */
 	public void updateRating(@Valid Rating rating) {
-		
+
 		Rating existingRating = getRatingById(rating.getId());
+
+		if(rating.getMoodysRating() != existingRating.getMoodysRating()) {
+			existingRating.setMoodysRating(rating.getMoodysRating());
+		}
+
+		if(rating.getSandPRating() != existingRating.getSandPRating()) {
+			existingRating.setSandPRating(rating.getSandPRating());
+		}
+
+		if(rating.getFitchRating() != existingRating.getFitchRating()) {
+			existingRating.setFitchRating(rating.getFitchRating());
+		}
 		
-		existingRating.setMoodysRating(rating.getMoodysRating());
-		existingRating.setSandPRating(rating.getSandPRating());
-		existingRating.setFitchRating(rating.getFitchRating());
-		existingRating.setOrderNumber(rating.getOrderNumber());
-		
+		if(rating.getOrderNumber() != existingRating.getOrderNumber()) {
+			existingRating.setOrderNumber(rating.getOrderNumber());
+		}
+
 		ratingRepository.save(existingRating);
-		
+
 	}
 
 	/**
@@ -78,13 +89,13 @@ public class RatingService {
 	public boolean deleteRating(Integer id) {
 
 		if(ratingRepository.existsById(id)) {
-			
+
 			ratingRepository.deleteById(id);
-			
+
 			return true;
-			
+
 		}
-		
+
 		return false;
 	}
 

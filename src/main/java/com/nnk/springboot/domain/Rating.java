@@ -12,36 +12,36 @@ import jakarta.validation.constraints.NotNull;
 @Entity
 @Table(name = "rating")
 public class Rating {
-   
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private  Integer id;
-	
+
 	@Column(name = "moodysRating")
 	@NotNull
 	@NotEmpty
 	private String moodysRating;
-	
+
 	@Column(name = "sandPRating")
 	@NotNull
 	@NotEmpty
 	private String sandPRating;
-	
+
 	@Column(name = "fitchRating")
 	@NotNull
 	@NotEmpty
 	private String fitchRating;
-	
+
 	@Column(name = "orderNumber")
 	@NotNull
 	private Integer orderNumber;
-	
+
 	//Default constructor
 	public Rating() {
-		
+
 	}
-	
+
 	public Rating(String moodysRating, String sandPRating, String fitchRating, Integer orderNumber){
 		this.moodysRating = moodysRating;
 		this.sandPRating = sandPRating;
@@ -88,5 +88,5 @@ public class Rating {
 	public void setOrderNumber(Integer orderNumber) {
 		this.orderNumber = orderNumber;
 	}
-	
+
 }

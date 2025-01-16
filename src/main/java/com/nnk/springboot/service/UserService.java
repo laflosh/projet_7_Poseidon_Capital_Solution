@@ -14,11 +14,11 @@ import com.nnk.springboot.repositories.UserRepository;
 import jakarta.validation.Valid;
 
 /**
- * 
+ *
  */
 @Service
 public class UserService {
-	
+
 	private static final Logger log = LogManager.getLogger(UserService.class);
 
 	@Autowired
@@ -28,24 +28,24 @@ public class UserService {
 	 * @return
 	 */
 	public List<User> getAllUsers() {
-		
+
 		List<User> users = userRepository.findAll();
-		
+
 		return users;
-		
+
 	}
-	
+
 	/**
 	 * @param id
 	 * @return
 	 */
 	public User getUserById(Integer id) {
-		
+
         User user = userRepository.findById(id)
         		.orElseThrow(() -> new RuntimeException("Invalid user Id:" + id));
-        
+
 		return user;
-		
+
 	}
 
 	/**
@@ -55,26 +55,37 @@ public class UserService {
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(encoder.encode(user.getPassword()));
-        
+
         userRepository.save(user);
-		
+
 	}
 
 	/**
 	 * @param user
 	 */
 	public void updateUser(@Valid User user) {
-		
+
 		User existingUser = getUserById(user.getId());
-		
-		existingUser.setFullname(user.getFullname());
-		existingUser.setUsername(user.getUsername());
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        existingUser.setPassword(encoder.encode(user.getPassword()));
-        existingUser.setRole(user.getRole());
-        
-        userRepository.save(existingUser);
+
+		if(user.getFullname() != existingUser.getFullname()) {
+			existingUser.setFullname(user.getFullname());
+		}
 		
+		if(user.getUsername() != existingUser.getUsername()) {
+			existingUser.setUsername(user.getUsername());
+		}
+		
+        if(user.getPassword() != existingUser.getPassword()) {
+        	existingUser.setPassword(encoder.encode(user.getPassword()));
+        }
+        
+        if(user.getRole() != existingUser.getRole()) {
+        	existingUser.setRole(user.getRole());
+        }
+
+        userRepository.save(existingUser);
+
 	}
 
 	/**
@@ -82,17 +93,17 @@ public class UserService {
 	 * @return
 	 */
 	public boolean deleteUser(Integer id) {
-		
+
 		if(userRepository.existsById(id)) {
-			
+
 			userRepository.deleteById(id);
-			
+
 			return true;
-			
+
 		}
-		
+
 		return false;
-		
+
 	}
-	
+
 }

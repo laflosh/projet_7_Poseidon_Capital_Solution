@@ -1,10 +1,5 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domain.CurvePoint;
-import com.nnk.springboot.service.CurvePointService;
-
-import jakarta.validation.Valid;
-
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -19,14 +14,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.nnk.springboot.domain.CurvePoint;
+import com.nnk.springboot.service.CurvePointService;
+
+import jakarta.validation.Valid;
+
 /**
- * 
+ *
  */
 @Controller
 public class CurvePointController {
 
 	private static  final Logger log = LogManager.getLogger(CurvePointController.class);
-	
+
 	@Autowired
 	private CurvePointService curvePointService;
 
@@ -38,16 +38,16 @@ public class CurvePointController {
     @RequestMapping("/curvePoint/list")
     public String home(Model model, Authentication auth)
     {
-    	
+
     	log.info("Trying to get all curvepoints in the database.");
-        
+
     	List<CurvePoint> curvePoints = curvePointService.getAllCurvePoints();
-    	
+
     	model.addAttribute("curvePoints", curvePoints);
     	model.addAttribute("username", auth.getName());
-    	
+
         return "curvePoint/list";
-        
+
     }
 
     /**
@@ -57,13 +57,13 @@ public class CurvePointController {
      */
     @GetMapping("/curvePoint/add")
     public String addCurvePointForm(CurvePoint curvePoint, Model model) {
-    	
+
     	log.info("Access to the adding curvepoint page");
-    	
+
     	model.addAttribute("curvePoint", new CurvePoint());
-    	
+
         return "curvePoint/add";
-        
+
     }
 
     /**
@@ -75,33 +75,33 @@ public class CurvePointController {
      */
     @PostMapping("/curvePoint/validate")
     public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model, Authentication auth) {
- 
+
     	if(result.hasErrors()) {
-    		
+
     		log.info("Error in the curvepoint object : {}", result.getAllErrors());
             return "curvePoint/add";
-    		
+
     	}
-    	
+
     	try {
-    		
+
     		log.info("Trying to save a new curvepoint in the database : {}", curvePoint);
-    		
+
     		curvePointService.addNewCurvePoint(curvePoint);
-    		
+
     		model.addAttribute("curvePoints", curvePointService.getAllCurvePoints());
     		model.addAttribute("username", auth.getName());
-    		
+
             return "curvePoint/list";
-    		
+
     	} catch(Exception e) {
-    		
+
     		log.info("Error during saving the curvepoint object : {}", e);
             return "curvePoint/add";
-    		
+
     	}
-    	
-        
+
+
     }
 
     /**
@@ -111,15 +111,15 @@ public class CurvePointController {
      */
     @GetMapping("/curvePoint/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-       
+
     	log.info("Access to the update curvepoint page");
-    	
+
     	CurvePoint curvePoint = curvePointService.getCurvePointById(id);
-    	
+
     	model.addAttribute("curvePoint", curvePoint);
-    	
+
         return "curvePoint/update";
-        
+
     }
 
     /**
@@ -132,32 +132,32 @@ public class CurvePointController {
      */
     @PostMapping("/curvePoint/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint, BindingResult result, Model model, Authentication auth) {
-    	
+
     	if(result.hasErrors()) {
-    		
+
     		log.info("Error in the curvepoint object : {}", result.getAllErrors());
     		return"curvePoint/update";
-    		
+
     	}
-    	
+
     	try {
-    		
+
     		log.info("Trying to update an existing curvepoint in the database with id : {}", id);
-    		
+
     		curvePointService.updateCurvePoint(curvePoint);
-    		
+
     		model.addAttribute("curvePoints", curvePointService.getAllCurvePoints());
     		model.addAttribute("username", auth.getName());
-    		
+
             return "redirect:/curvePoint/list";
-    		
+
     	} catch(Exception e) {
-    		
+
     		log.info("Error during updating the curvepoint object : {}", e);
     		return"curvePoint/update";
-    		
+
     	}
-        
+
     }
 
     /**
@@ -167,21 +167,21 @@ public class CurvePointController {
      */
     @GetMapping("/curvePoint/delete/{id}")
     public String deleteCurvePoint(@PathVariable("id") Integer id, Model model, Authentication auth) {
-    	
+
        	log.info("Trying to delete a existing curvepoint in the database with id : {}",id);
-       	
+
        	boolean isDelete = curvePointService.deleteCurvePoint(id);
-    	
-       	if(isDelete == true) {
-       		
+
+       	if(isDelete) {
+
     		model.addAttribute("curvePoints", curvePointService.getAllCurvePoints());
     		model.addAttribute("username", auth.getName());
-    		
+
        		return "redirect:/curvePoint/list";
-       		
+
        	}
-       	
+
         return null;
-        
+
     }
 }

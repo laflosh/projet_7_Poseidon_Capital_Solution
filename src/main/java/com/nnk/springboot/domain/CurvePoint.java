@@ -13,34 +13,34 @@ import jakarta.validation.constraints.NotNull;
 @Entity
 @Table(name = "curvepoint")
 public class CurvePoint {
-   
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
-	
+
 	@Column(name = "curveId")
 	private Integer curveId;
-	
+
 	@Column(name = "asOfDate")
 	private Timestamp asOfDate;
-	
+
 	@Column(name = "term")
 	@NotNull
 	private Double term;
-	
+
 	@Column(name = "value")
 	@NotNull
 	private Double value;
-	
+
 	@Column(name = "creationDate")
 	private Timestamp creationDate;
-	
+
 	//Default constructor
 	public CurvePoint() {
-		
+
 	}
-	
+
 	public CurvePoint(Integer curveId, double term, double value) {
 		this.curveId = curveId;
 		this.term = term;

@@ -13,13 +13,13 @@ import com.nnk.springboot.repositories.TradeRepository;
 import jakarta.validation.Valid;
 
 /**
- * 
+ *
  */
 @Service
 public class TradeService {
 
 	private static final Logger log = LogManager.getLogger(TradeService.class);
-	
+
 	@Autowired
 	private TradeRepository tradeRepository;
 
@@ -31,20 +31,20 @@ public class TradeService {
 		List<Trade> trades = tradeRepository.findAll();
 
 		return trades;
-		
+
 	}
-	
+
 	/**
 	 * @param id
 	 * @return
 	 */
 	public Trade getTradeById(Integer id) {
-		
+
 		Trade trade = tradeRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Trade not found"));
-		
+
 		return trade;
-		
+
 	}
 
 	/**
@@ -53,22 +53,30 @@ public class TradeService {
 	public void addNewTrade(@Valid Trade trade) {
 
 		tradeRepository.save(trade);
-		
+
 	}
 
 	/**
 	 * @param trade
 	 */
 	public void updateTrade(@Valid Trade trade) {
-		
+
 		Trade existingTrade = getTradeById(trade.getTradeId());
+
+		if(trade.getAccount() != existingTrade.getAccount()) {
+			existingTrade.setAccount(trade.getAccount());
+		}
 		
-		existingTrade.setAccount(trade.getAccount());
-		existingTrade.setType(trade.getType());
-		existingTrade.setBuyQuantity(trade.getBuyQuantity());
+		if(trade.getType() != existingTrade.getType()) {
+			existingTrade.setType(trade.getType());
+		}
 		
+		if(trade.getBuyQuantity() != existingTrade.getBuyQuantity()) {
+			existingTrade.setBuyQuantity(trade.getBuyQuantity());
+		}
+
 		tradeRepository.save(existingTrade);
-		
+
 	}
 
 	/**
@@ -76,17 +84,17 @@ public class TradeService {
 	 * @return
 	 */
 	public boolean deleteTrade(Integer id) {
-		
+
 		if(tradeRepository.existsById(id)) {
-			
+
 			tradeRepository.deleteById(id);
-			
+
 			return true;
-			
+
 		}
-		
+
 		return false;
-		
+
 	}
-	
+
 }

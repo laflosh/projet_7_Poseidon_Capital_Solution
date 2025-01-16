@@ -1,10 +1,5 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domain.BidList;
-import com.nnk.springboot.service.BidListService;
-
-import jakarta.validation.Valid;
-
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -19,14 +14,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.nnk.springboot.domain.BidList;
+import com.nnk.springboot.service.BidListService;
+
+import jakarta.validation.Valid;
+
 /**
- * 
+ *
  */
 @Controller
 public class BidListController {
-	
+
 	private static  final Logger log = LogManager.getLogger(BidListController.class);
-    
+
 	@Autowired
 	private BidListService bidListService;
 
@@ -41,12 +41,12 @@ public class BidListController {
     	log.info("Trying to get all bidlists in database.");
 
     	List<BidList> bidLists = bidListService.getAllBidLists();
-    	
-    	model.addAttribute("bidLists", bidLists); 
-    	model.addAttribute("username", auth.getName());  
-    	
+
+    	model.addAttribute("bidLists", bidLists);
+    	model.addAttribute("username", auth.getName());
+
         return "bidList/list";
-        
+
     }
 
     /**
@@ -56,13 +56,13 @@ public class BidListController {
      */
     @GetMapping("/bidList/add")
     public String addBidForm(BidList bidList, Model model) {
-    	
+
     	log.info("Access to the bidlist add page.");
-    	
+
     	model.addAttribute("bidList", new BidList());
-    	
+
         return "bidList/add";
-        
+
     }
 
     /**
@@ -74,32 +74,32 @@ public class BidListController {
      */
     @PostMapping("/bidList/validate")
     public String validate(@Valid BidList bidList, BindingResult result, Model model, Authentication auth) {
-    	
+
     	if(result.hasErrors()) {
-    		
+
     		log.info("Error in the bidlist object : {} .", result.getAllErrors());
     		return "bidList/add";
-    		
+
     	}
-    	
+
     	try {
-    		
+
     		log.info("Trying to save a new bidlist in the database : {} .", bidList);
-    		
+
     		bidListService.addNewBidList(bidList);
-    		
+
     		model.addAttribute("bidLists", bidListService.getAllBidLists());
     		model.addAttribute("username", auth.getName());
-    		
+
     		return "bidList/list";
-    		
+
     	} catch (Exception e) {
-    		
+
     		log.info("Error during saving the bidlist object : {} .", e);
     		return "bidList/add";
-    		
+
     	}
-        
+
     }
 
     /**
@@ -109,13 +109,13 @@ public class BidListController {
      */
     @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        
+
     	log.info("Access to the bidlist update page.");
-    	
+
     	BidList bidList = bidListService.getBidListById(id);
-    	
+
     	model.addAttribute("bidList", bidList);
-    	
+
         return "bidList/update";
     }
 
@@ -129,32 +129,32 @@ public class BidListController {
      */
     @PostMapping("/bidList/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList, BindingResult result, Model model, Authentication auth) {
-        
+
     	if(result.hasErrors()) {
-    		
+
     		log.info("Error in the bidlist object : {} .", result.getAllErrors());
     		return"bidList/update";
-    		
+
     	}
-    	
+
     	try {
-    		
+
     		log.info("Trying to update the existing bidlist in database with id : {} .", id);
-    		
+
     		bidListService.updateBidList(bidList);
-    		
+
     		model.addAttribute("bidLists", bidListService.getAllBidLists());
     		model.addAttribute("username", auth.getName());
-    		
+
             return "redirect:/bidList/list";
-    		
+
     	} catch (Exception e) {
-    		
+
     		log.info("Error during updating the bidlist object : {} .", e);
     		return"bidList/update";
-    		
+
     	}
-        
+
     }
 
     /**
@@ -168,18 +168,18 @@ public class BidListController {
     	log.info("Trying to delete an existing bidlist in the database with id : {} .", id);
 
        	boolean isDelete = bidListService.deleteBidList(id);
-    	
-       	if(isDelete == true) {
-       		
+
+       	if(isDelete) {
+
     		model.addAttribute("bidLists", bidListService.getAllBidLists());
     		model.addAttribute("username", auth.getName());
-    		
+
        		return "redirect:/bidList/list";
-       		
+
        	}
-       	
+
         return null;
-        
+
     }
-    
+
 }

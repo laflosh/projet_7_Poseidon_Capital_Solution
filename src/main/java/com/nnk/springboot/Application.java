@@ -7,13 +7,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class Application {
-	
+
 	private static final Logger log = LogManager.getLogger("Application");
 
 	public static void main(String[] args) {
-		
+
 		log.info("Initalizing API Poseidon Capital Solution");
 		SpringApplication.run(Application.class, args);
-		
+
 	}
 }
