@@ -20,7 +20,7 @@ import com.nnk.springboot.service.RatingService;
 import jakarta.validation.Valid;
 
 /**
- *
+ * This controller manage all the front end page and CRUD operations for the rating domain
  */
 @Controller
 public class RatingController {
@@ -31,9 +31,11 @@ public class RatingController {
 	private RatingService ratingService;
 
     /**
+     * Fetching all the ratings and return the page list to see all the rating
+     * 
      * @param model
-     * @param auth
-     * @return
+     * @param user auth
+     * @return rating's page list
      */
     @RequestMapping("/rating/list")
     public String home(Model model, Authentication auth )
@@ -50,9 +52,11 @@ public class RatingController {
     }
 
     /**
-     * @param rating
+     * Return the add page for rating with an empty rating entity 
+     * 
+     * @param New empty rating
      * @param model
-     * @return
+     * @return rating's add page
      */
     @GetMapping("/rating/add")
     public String addRatingForm(Rating rating, Model model) {
@@ -66,11 +70,14 @@ public class RatingController {
     }
 
     /**
-     * @param rating
+     * Check all the data in the new entity, save it in the database 
+     * and redirect to the rating's list page
+     * 
+     * @param new rating
      * @param result
      * @param model
-     * @param auth
-     * @return
+     * @param user auth
+     * @return redirect to the rating's list page
      */
     @PostMapping("/rating/validate")
     public String validate(@Valid Rating rating, BindingResult result, Model model, Authentication auth) {
@@ -103,9 +110,12 @@ public class RatingController {
     }
 
     /**
-     * @param id
+     * Get the rating entity to update the data, add it to the model of the update page 
+     * and return the update page with the rating entity
+     * 
+     * @param id of the rating to update
      * @param model
-     * @return
+     * @return rating's update page
      */
     @GetMapping("/rating/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
@@ -121,12 +131,15 @@ public class RatingController {
     }
 
     /**
-     * @param id
-     * @param rating
+     * Check all data in the update entity, save it in the database
+     * and redirect to the rating's list page
+     * 
+     * @param id of the update rating
+     * @param update rating
      * @param result
      * @param model
-     * @param auth
-     * @return
+     * @param User auth
+     * @return rating's list page
      */
     @PostMapping("/rating/update/{id}")
     public String updateRating(@PathVariable("id") Integer id, @Valid Rating rating, BindingResult result, Model model, Authentication auth) {
@@ -159,9 +172,12 @@ public class RatingController {
     }
 
     /**
-     * @param id
+     * Delete the selected rating entity and redirect to the rating's list page
+     * 
+     * @param id of the rating
      * @param model
-     * @return
+     * @param User auth
+     * @return rating's list page
      */
     @GetMapping("/rating/delete/{id}")
     public String deleteRating(@PathVariable("id") Integer id, Model model, Authentication auth) {

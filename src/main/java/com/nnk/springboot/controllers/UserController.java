@@ -19,7 +19,7 @@ import com.nnk.springboot.service.UserService;
 import jakarta.validation.Valid;
 
 /**
- *
+ * This controller manage all the front end page and CRUD operations for the user domain
  */
 @Controller
 public class UserController {
@@ -30,8 +30,10 @@ public class UserController {
     private UserService userService;
 
     /**
+     * Fetching all the users and return the page list to see all users
+     * 
      * @param model
-     * @return
+     * @return user's list page
      */
     @RequestMapping("/user/list")
     public String home(Model model)
@@ -48,9 +50,11 @@ public class UserController {
     }
 
     /**
-     * @param user
+     * Return the add page with an empty user entity
+     * 
+     * @param New empty user
      * @param model
-     * @return
+     * @return user's add page
      */
     @GetMapping("/user/add")
     public String addUser(User user, Model model) {
@@ -64,10 +68,13 @@ public class UserController {
     }
 
     /**
-     * @param user
+     * Check all the data in the new entity, save it in the database 
+     * and redirect to the user's list page
+     * 
+     * @param new user
      * @param result
      * @param model
-     * @return
+     * @return redirect to the user's list page
      */
     @PostMapping("/user/validate")
     public String validate(@Valid User user, BindingResult result, Model model) {
@@ -99,9 +106,12 @@ public class UserController {
     }
 
     /**
-     * @param id
+     * Get the user entity to update the data, add it to the model of the update page 
+     * and return the update page with the user entity
+     * 
+     * @param id of the user
      * @param model
-     * @return
+     * @return user's update page
      */
     @GetMapping("/user/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
@@ -118,11 +128,14 @@ public class UserController {
     }
 
     /**
-     * @param id
-     * @param user
+     * Check all data in the update entity, save it in the database
+     * and redirect to the user's list page
+     * 
+     * @param id of the user
+     * @param update user
      * @param result
      * @param model
-     * @return
+     * @return redirect to the user's list page
      */
     @PostMapping("/user/update/{id}")
     public String updateUser(@PathVariable("id") Integer id, @Valid User user, BindingResult result, Model model) {
@@ -154,9 +167,11 @@ public class UserController {
     }
 
     /**
-     * @param id
+     * Delete the selected user entity and redirect to the user's list page
+     * 
+     * @param id of the user
      * @param model
-     * @return
+     * @return redirect to the user's list page
      */
     @GetMapping("/user/delete/{id}")
     public String deleteUser(@PathVariable("id") Integer id, Model model) {

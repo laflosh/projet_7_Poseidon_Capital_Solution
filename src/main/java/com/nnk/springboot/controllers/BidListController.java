@@ -20,7 +20,7 @@ import com.nnk.springboot.service.BidListService;
 import jakarta.validation.Valid;
 
 /**
- *
+ * This controller manage all the front end page and CRUD operations for the bidlist domain
  */
 @Controller
 public class BidListController {
@@ -31,9 +31,11 @@ public class BidListController {
 	private BidListService bidListService;
 
     /**
+     * Fetching all the bidlists and return the page list to see all bidlists
+     * 
      * @param model
-     * @param auth
-     * @return
+     * @param user auth
+     * @return bidlist'list page
      */
     @RequestMapping("/bidList/list")
     public String home(Model model, Authentication auth)
@@ -50,9 +52,11 @@ public class BidListController {
     }
 
     /**
-     * @param bid
+     * Return the add page with an empty bidlist entity
+     * 
+     * @param New empty bid
      * @param model
-     * @return
+     * @return bidlist's add page
      */
     @GetMapping("/bidList/add")
     public String addBidForm(BidList bidList, Model model) {
@@ -66,11 +70,14 @@ public class BidListController {
     }
 
     /**
-     * @param bid
+     * Check all the data in the new entity, save it in the database 
+     * and redirect to the bidlist's list page
+     * 
+     * @param new bid
      * @param result
      * @param model
-     * @param auth
-     * @return
+     * @param User auth
+     * @return redirect to the bidlist's list page
      */
     @PostMapping("/bidList/validate")
     public String validate(@Valid BidList bidList, BindingResult result, Model model, Authentication auth) {
@@ -103,9 +110,12 @@ public class BidListController {
     }
 
     /**
-     * @param id
+     * Get the bidlist entity to update the data, add it to the model of the update page 
+     * and return the update page with the bidlist entity
+     * 
+     * @param id of the bidlist
      * @param model
-     * @return
+     * @return bidlist's update page
      */
     @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
@@ -120,12 +130,15 @@ public class BidListController {
     }
 
     /**
-     * @param id
-     * @param bidList
+     * Check all data in the update entity, save it in the database
+     * and redirect to the bidlist's list page
+     * 
+     * @param id of the bidlist
+     * @param update bidList
      * @param result
      * @param model
-     * @param auth
-     * @return
+     * @param User auth
+     * @return redirect to the bidlist's list page
      */
     @PostMapping("/bidList/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList, BindingResult result, Model model, Authentication auth) {
@@ -158,9 +171,12 @@ public class BidListController {
     }
 
     /**
-     * @param id
+     * Delete the selected bidlist entity and redirect to the bidlist's list page
+     * 
+     * @param id of the bidlist
      * @param model
-     * @return
+     * @param User auth
+     * @return redirect to the bidlist' list page
      */
     @GetMapping("/bidList/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model, Authentication auth) {

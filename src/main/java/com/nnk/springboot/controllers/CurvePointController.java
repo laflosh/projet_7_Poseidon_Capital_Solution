@@ -20,7 +20,7 @@ import com.nnk.springboot.service.CurvePointService;
 import jakarta.validation.Valid;
 
 /**
- *
+ * This controller manage all the front end page and CRUD operations for the curvepoint domain
  */
 @Controller
 public class CurvePointController {
@@ -31,9 +31,11 @@ public class CurvePointController {
 	private CurvePointService curvePointService;
 
     /**
+     * Fetching all the curvepoints and return the page list to see all curvepoints
+     * 
      * @param model
-     * @param auth
-     * @return
+     * @param User auth
+     * @return curvepoint's list page
      */
     @RequestMapping("/curvePoint/list")
     public String home(Model model, Authentication auth)
@@ -51,9 +53,11 @@ public class CurvePointController {
     }
 
     /**
-     * @param curvePoint
+     * Return the add page with an empty curvepoint entity
+     * 
+     * @param New empty curvePoint
      * @param model
-     * @return
+     * @return curvepoint's add page
      */
     @GetMapping("/curvePoint/add")
     public String addCurvePointForm(CurvePoint curvePoint, Model model) {
@@ -67,11 +71,14 @@ public class CurvePointController {
     }
 
     /**
-     * @param curvePoint
+     * Check all the data in the new entity, save it in the database 
+     * and redirect to the curvepoint's list page
+     * 
+     * @param new curvePoint
      * @param result
      * @param model
-     * @param auth
-     * @return
+     * @param User auth
+     * @return redirect to the curvepoint's list page
      */
     @PostMapping("/curvePoint/validate")
     public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model, Authentication auth) {
@@ -105,9 +112,12 @@ public class CurvePointController {
     }
 
     /**
-     * @param id
+     * Get the curvepoint entity to update the data, add it to the model of the update page 
+     * and return the update page with the curvepoint entity
+     * 
+     * @param id of the curvepoint
      * @param model
-     * @return
+     * @return curvepoint's update page
      */
     @GetMapping("/curvePoint/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
@@ -123,12 +133,15 @@ public class CurvePointController {
     }
 
     /**
-     * @param id
-     * @param curvePoint
+     * Check all data in the update entity, save it in the database
+     * and redirect to the curvepoint's list page
+     * 
+     * @param id of the curvepoint
+     * @param update curvePoint
      * @param result
      * @param model
-     * @param auth
-     * @return
+     * @param User auth
+     * @return redirect to the curvepoint's list page
      */
     @PostMapping("/curvePoint/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint, BindingResult result, Model model, Authentication auth) {
@@ -161,9 +174,12 @@ public class CurvePointController {
     }
 
     /**
+     * Delete the selected curvepoint entity and redirect to the curvepoint's list page
+     * 
      * @param id
      * @param model
-     * @return
+     * @param User auth
+     * @return redirect to the curvepoint's list page
      */
     @GetMapping("/curvePoint/delete/{id}")
     public String deleteCurvePoint(@PathVariable("id") Integer id, Model model, Authentication auth) {

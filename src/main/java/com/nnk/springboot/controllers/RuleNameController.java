@@ -20,7 +20,7 @@ import com.nnk.springboot.service.RuleNameService;
 import jakarta.validation.Valid;
 
 /**
- *
+ * This controller manage all the front end page and CRUD operations for the rulename domain
  */
 @Controller
 public class RuleNameController {
@@ -31,9 +31,11 @@ public class RuleNameController {
 	private RuleNameService ruleNameService;
 
     /**
+     * Fetching all the rulenames and return the page list to see all rulenames
+     * 
      * @param model
-     * @param auth
-     * @return
+     * @param User auth
+     * @return rulename's page list
      */
     @RequestMapping("/ruleName/list")
     public String home(Model model, Authentication auth)
@@ -49,9 +51,11 @@ public class RuleNameController {
     }
 
     /**
-     * @param ruleName
+     * Return the add page with an empty rulename entity
+     * 
+     * @param New empty ruleName
      * @param model
-     * @return
+     * @return rulename's add page
      */
     @GetMapping("/ruleName/add")
     public String addRuleForm(RuleName ruleName, Model model) {
@@ -64,11 +68,14 @@ public class RuleNameController {
     }
 
     /**
-     * @param ruleName
+     * Check all the data in the new entity, save it in the database 
+     * and redirect to the rulename's list page
+     * 
+     * @param New ruleName
      * @param result
      * @param model
-     * @param auth
-     * @return
+     * @param User auth
+     * @return redirect to rulename's list page
      */
     @PostMapping("/ruleName/validate")
     public String validate(@Valid RuleName ruleName, BindingResult result, Model model, Authentication auth) {
@@ -101,9 +108,12 @@ public class RuleNameController {
     }
 
     /**
-     * @param id
+     * Get the rulename entity to update the data, add it to the model of the update page 
+     * and return the update page with the rulename entity
+     * 
+     * @param id of the rulename
      * @param model
-     * @return
+     * @return rulename's update page
      */
     @GetMapping("/ruleName/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
@@ -118,12 +128,15 @@ public class RuleNameController {
     }
 
     /**
-     * @param id
-     * @param ruleName
+     * Check all data in the update entity, save it in the database
+     * and redirect to the rulename's list page
+     * 
+     * @param id of the rulename
+     * @param update ruleName
      * @param result
      * @param model
-     * @param auth
-     * @return
+     * @param User auth
+     * @return redirect to the rulename's list page
      */
     @PostMapping("/ruleName/update/{id}")
     public String updateRuleName(@PathVariable("id") Integer id, @Valid RuleName ruleName, BindingResult result, Model model, Authentication auth) {
@@ -156,9 +169,12 @@ public class RuleNameController {
     }
 
     /**
-     * @param id
+     * Delete the selected rulename entity and redirect to the rulename's list page
+     * 
+     * @param id of the rulename
      * @param model
-     * @return
+     * @param User auth
+     * @return redirect to the rulename' list page
      */
     @GetMapping("/ruleName/delete/{id}")
     public String deleteRuleName(@PathVariable("id") Integer id, Model model, Authentication auth) {
