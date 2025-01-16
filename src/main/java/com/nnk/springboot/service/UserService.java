@@ -29,6 +29,8 @@ public class UserService {
 	 */
 	public List<User> getAllUsers() {
 
+		log.info("Get all users in the database.");
+		
 		List<User> users = userRepository.findAll();
 
 		return users;
@@ -41,6 +43,8 @@ public class UserService {
 	 */
 	public User getUserById(Integer id) {
 
+		log.info("Get one user in the database with id : {} .", id);
+		
         User user = userRepository.findById(id)
         		.orElseThrow(() -> new RuntimeException("Invalid user Id:" + id));
 
@@ -53,6 +57,8 @@ public class UserService {
 	 */
 	public void addNewUser(@Valid User user) {
 
+		log.info("Add new user object in the database : {} .", user);
+		
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(encoder.encode(user.getPassword()));
 
@@ -65,6 +71,8 @@ public class UserService {
 	 */
 	public void updateUser(@Valid User user) {
 
+		log.info("Update user object existing in the database with id : {} .", user.getId());
+		
 		User existingUser = getUserById(user.getId());
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
@@ -94,6 +102,8 @@ public class UserService {
 	 */
 	public boolean deleteUser(Integer id) {
 
+		log.info("Delete user object in the database with id : {} .", id);
+		
 		if(userRepository.existsById(id)) {
 
 			userRepository.deleteById(id);

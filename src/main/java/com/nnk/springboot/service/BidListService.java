@@ -28,6 +28,8 @@ public class BidListService {
 	 */
 	public List<BidList> getAllBidLists() {
 
+		log.info("Get all bidlists in the database");
+		
 		List<BidList> bidLists = bidListRepository.findAll();
 
 		return bidLists;
@@ -39,6 +41,8 @@ public class BidListService {
 	 */
 	public BidList getBidListById(Integer id) {
 
+		log.info("Get one bidlist in the database");
+		
 		BidList bidList = bidListRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("BidList not found."));
 
@@ -51,6 +55,8 @@ public class BidListService {
 	 */
 	public void addNewBidList(@Valid BidList bid) {
 
+		log.info("Add new bidlist object in the database : {} .", bid);
+		
 		bidListRepository.save(bid);
 
 	}
@@ -60,6 +66,8 @@ public class BidListService {
 	 */
 	public void updateBidList(@Valid BidList bidList) {
 
+		log.info("Update bidlist object existing in the database with id : {} .", bidList.getBidListId());
+		
 		BidList existingBidList = getBidListById(bidList.getBidListId());
 
 		if(bidList.getAccount() != existingBidList.getAccount()) {
@@ -84,6 +92,8 @@ public class BidListService {
 	 */
 	public boolean deleteBidList(Integer id) {
 
+		log.info("Delete bidlist in the database with id : {} .", id);
+		
 		if(bidListRepository.existsById(id)) {
 
 			bidListRepository.deleteById(id);

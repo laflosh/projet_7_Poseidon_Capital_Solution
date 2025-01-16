@@ -28,6 +28,8 @@ public class RuleNameService {
 	 * @return
 	 */
 	public List<RuleName> getAllRuleNames() {
+		
+		log.info("Get all rulenames in the database.");
 
 		List<RuleName> ruleNames = ruleNameRepository.findAll();
 
@@ -41,6 +43,8 @@ public class RuleNameService {
 	 */
 	public RuleName getRuleNameById(Integer id) {
 
+		log.info("Get one rulename by id : {} .", id);
+		
 		RuleName ruleName = ruleNameRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("RuleName not found."));
 
@@ -53,6 +57,8 @@ public class RuleNameService {
 	 */
 	public void addNewRuleName(@Valid RuleName ruleName) {
 
+		log.info("Add new rulename object in the database : {} .", ruleName);
+		
 		ruleNameRepository.save(ruleName);
 
 	}
@@ -62,6 +68,8 @@ public class RuleNameService {
 	 */
 	public void updateRuleName(@Valid RuleName ruleName) {
 
+		log.info("Update the rulename object existing in the database with id : {} .", ruleName.getId());
+		
 		RuleName existingRuleName = getRuleNameById(ruleName.getId());
 
 		if(ruleName.getName() != existingRuleName.getName()) {
@@ -98,6 +106,8 @@ public class RuleNameService {
 	 */
 	public boolean deleteRuleName(Integer id) {
 
+		log.info("Delete the rulename object in the database with the id : {} .", id);
+		
 		if(ruleNameRepository.existsById(id)) {
 
 			ruleNameRepository.deleteById(id);

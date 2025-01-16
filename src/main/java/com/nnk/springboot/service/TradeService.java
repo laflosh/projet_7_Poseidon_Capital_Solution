@@ -28,6 +28,8 @@ public class TradeService {
 	 */
 	public List<Trade> getAllTrades() {
 
+		log.info("Get all trades in the database");
+		
 		List<Trade> trades = tradeRepository.findAll();
 
 		return trades;
@@ -40,6 +42,8 @@ public class TradeService {
 	 */
 	public Trade getTradeById(Integer id) {
 
+		log.info("Get one trade in the database");
+		
 		Trade trade = tradeRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Trade not found"));
 
@@ -52,6 +56,8 @@ public class TradeService {
 	 */
 	public void addNewTrade(@Valid Trade trade) {
 
+		log.info("Add new trade object in the database : {} .", trade);
+		
 		tradeRepository.save(trade);
 
 	}
@@ -61,6 +67,8 @@ public class TradeService {
 	 */
 	public void updateTrade(@Valid Trade trade) {
 
+		log.info("Update trade object existing in the database with id : {} .", trade.getTradeId());
+		
 		Trade existingTrade = getTradeById(trade.getTradeId());
 
 		if(trade.getAccount() != existingTrade.getAccount()) {
@@ -85,6 +93,8 @@ public class TradeService {
 	 */
 	public boolean deleteTrade(Integer id) {
 
+		log.info("Delete trade object in the database with id : {} .", id);
+		
 		if(tradeRepository.existsById(id)) {
 
 			tradeRepository.deleteById(id);

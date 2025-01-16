@@ -27,6 +27,8 @@ public class RatingService {
 	 * @return
 	 */
 	public List<Rating> getAllRatings() {
+		
+		log.info("Get all ratings in the database.");
 
 		List<Rating> ratings = ratingRepository.findAll();
 
@@ -39,6 +41,8 @@ public class RatingService {
 	 * @return
 	 */
 	public Rating getRatingById(Integer id) {
+		
+		log.info("get one rating by the id : {} .", id);
 
 		Rating rating = ratingRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Rating not found."));
@@ -51,6 +55,8 @@ public class RatingService {
 	 */
 	public void addNewRating(@Valid Rating rating) {
 
+		log.info("Add a new rating object in the database : {} .", rating);
+		
 		ratingRepository.save(rating);
 
 	}
@@ -60,6 +66,8 @@ public class RatingService {
 	 */
 	public void updateRating(@Valid Rating rating) {
 
+		log.info("Update the rating object existing in the database with id : {} .", rating.getId());
+		
 		Rating existingRating = getRatingById(rating.getId());
 
 		if(rating.getMoodysRating() != existingRating.getMoodysRating()) {
@@ -88,6 +96,8 @@ public class RatingService {
 	 */
 	public boolean deleteRating(Integer id) {
 
+		log.info("Delete the rating object in the database with id : {} .", id);
+		
 		if(ratingRepository.existsById(id)) {
 
 			ratingRepository.deleteById(id);

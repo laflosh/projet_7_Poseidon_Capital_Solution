@@ -28,6 +28,8 @@ public class CurvePointService {
 	 */
 	public List<CurvePoint> getAllCurvePoints() {
 
+		log.info("Get all curvepoints in the database.");
+		
 		List<CurvePoint> curvePoints = curvePointRepository.findAll();
 
 		return curvePoints;
@@ -40,6 +42,8 @@ public class CurvePointService {
 	 */
 	public CurvePoint getCurvePointById(Integer id) {
 
+		log.info("Get one curvepoint in the database with id : {} .", id);
+		
 		CurvePoint curvePoint = curvePointRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("CurvePoint not found"));
 
@@ -52,6 +56,8 @@ public class CurvePointService {
 	 */
 	public void addNewCurvePoint(@Valid CurvePoint curvePoint) {
 
+		log.info("Add new curvepoint object in database : {} .", curvePoint);
+		
 		curvePointRepository.save(curvePoint);
 
 	}
@@ -61,6 +67,8 @@ public class CurvePointService {
 	 */
 	public void updateCurvePoint(@Valid CurvePoint curvePoint) {
 
+		log.info("Update the curvepoint object existing in the database with id : {} .", curvePoint.getId());
+		
 		CurvePoint existingCurvePoint = getCurvePointById(curvePoint.getId());
 
 		if(curvePoint.getTerm() != existingCurvePoint.getTerm()) {
@@ -81,6 +89,8 @@ public class CurvePointService {
 	 */
 	public boolean deleteCurvePoint(Integer id) {
 
+		log.info("Delete the curvepoint object in the database with id : {} .", id);
+		
 		if(curvePointRepository.existsById(id)) {
 
 			curvePointRepository.deleteById(id);
