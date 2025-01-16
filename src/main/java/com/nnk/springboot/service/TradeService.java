@@ -13,7 +13,7 @@ import com.nnk.springboot.repositories.TradeRepository;
 import jakarta.validation.Valid;
 
 /**
- *
+ * This service contain all the methods to execute CRUD operations for the trade domain
  */
 @Service
 public class TradeService {
@@ -24,7 +24,9 @@ public class TradeService {
 	private TradeRepository tradeRepository;
 
 	/**
-	 * @return
+	 * Fetching all trades entity in the database
+	 * 
+	 * @return A list of trades
 	 */
 	public List<Trade> getAllTrades() {
 
@@ -37,8 +39,10 @@ public class TradeService {
 	}
 
 	/**
-	 * @param id
-	 * @return
+	 * Fetching one trade entity depending of the id in the database
+	 * 
+	 * @param id of the user
+	 * @return User
 	 */
 	public Trade getTradeById(Integer id) {
 
@@ -52,7 +56,9 @@ public class TradeService {
 	}
 
 	/**
-	 * @param trade
+	 * Add a new trade entity in the database
+	 * 
+	 * @param new trade
 	 */
 	public void addNewTrade(@Valid Trade trade) {
 
@@ -63,7 +69,9 @@ public class TradeService {
 	}
 
 	/**
-	 * @param trade
+	 * Update the existing trade entity in the database
+	 * 
+	 * @param update trade
 	 */
 	public void updateTrade(@Valid Trade trade) {
 
@@ -88,8 +96,10 @@ public class TradeService {
 	}
 
 	/**
-	 * @param id
-	 * @return
+	 * Delete an existing trade entity in the database depending of the id
+	 * 
+	 * @param id of the trade
+	 * @return true if delete
 	 */
 	public boolean deleteTrade(Integer id) {
 

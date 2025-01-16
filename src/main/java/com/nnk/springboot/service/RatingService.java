@@ -13,7 +13,7 @@ import com.nnk.springboot.repositories.RatingRepository;
 import jakarta.validation.Valid;
 
 /**
- *
+ * This service contain all the methods to execute CRUD operations for the rating domain
  */
 @Service
 public class RatingService {
@@ -24,7 +24,9 @@ public class RatingService {
 	private RatingRepository ratingRepository;
 
 	/**
-	 * @return
+	 * Fetching all the ratings entity in the database
+	 * 
+	 * @return A list of ratings
 	 */
 	public List<Rating> getAllRatings() {
 		
@@ -37,8 +39,10 @@ public class RatingService {
 	}
 
 	/**
-	 * @param id
-	 * @return
+	 * Fetching one rating depending of the id in the database
+	 * 
+	 * @param id of the rating
+	 * @return Rating
 	 */
 	public Rating getRatingById(Integer id) {
 		
@@ -51,7 +55,9 @@ public class RatingService {
 	}
 
 	/**
-	 * @param rating
+	 * Add a new valid rating entity in the database
+	 * 
+	 * @param new rating
 	 */
 	public void addNewRating(@Valid Rating rating) {
 
@@ -62,7 +68,9 @@ public class RatingService {
 	}
 
 	/**
-	 * @param rating
+	 * Update a valid existing rating entity in the database
+	 * 
+	 * @param update rating
 	 */
 	public void updateRating(@Valid Rating rating) {
 
@@ -91,8 +99,10 @@ public class RatingService {
 	}
 
 	/**
-	 * @param id
-	 * @return
+	 * Delete an existing rating entity in the database depending of the id
+	 * 
+	 * @param id of the rating
+	 * @return true if delete
 	 */
 	public boolean deleteRating(Integer id) {
 

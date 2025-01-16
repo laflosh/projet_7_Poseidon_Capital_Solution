@@ -13,7 +13,7 @@ import com.nnk.springboot.repositories.CurvePointRepository;
 import jakarta.validation.Valid;
 
 /**
- *
+ * This service contain all the methods to execute CRUD operations for the curvepoint domain
  */
 @Service
 public class CurvePointService {
@@ -24,7 +24,9 @@ public class CurvePointService {
 	private CurvePointRepository curvePointRepository;
 
 	/**
-	 * @return
+	 * Fetching all the cruvepoints entity in the database
+	 * 
+	 * @return A list of curvepoints
 	 */
 	public List<CurvePoint> getAllCurvePoints() {
 
@@ -37,8 +39,10 @@ public class CurvePointService {
 	}
 
 	/**
-	 * @param id
-	 * @return
+	 * Fetching one curvepoint entity depending of the id in the database
+	 * 
+	 * @param id of the curvepoint
+	 * @return Curvepoint
 	 */
 	public CurvePoint getCurvePointById(Integer id) {
 
@@ -52,7 +56,9 @@ public class CurvePointService {
 	}
 
 	/**
-	 * @param curvePoint
+	 * Add a new curvepoint entity in the database
+	 * 
+	 * @param new curvePoint
 	 */
 	public void addNewCurvePoint(@Valid CurvePoint curvePoint) {
 
@@ -63,7 +69,9 @@ public class CurvePointService {
 	}
 
 	/**
-	 * @param curvePoint
+	 * Update the curvepoint entity existing in the database
+	 * 
+	 * @param update curvePoint
 	 */
 	public void updateCurvePoint(@Valid CurvePoint curvePoint) {
 
@@ -84,8 +92,10 @@ public class CurvePointService {
 	}
 
 	/**
-	 * @param id
-	 * @return
+	 * Delete an existing curvepoint entity in the database depending of the id
+	 * 
+	 * @param id of the curvepoint
+	 * @return true if delete
 	 */
 	public boolean deleteCurvePoint(Integer id) {
 

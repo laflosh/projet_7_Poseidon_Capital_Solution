@@ -13,7 +13,7 @@ import com.nnk.springboot.repositories.RuleNameRepository;
 import jakarta.validation.Valid;
 
 /**
- *
+ * This service contain all the methods to execute CRUD operations for the rulename domain
  */
 @Service
 public class RuleNameService {
@@ -25,7 +25,9 @@ public class RuleNameService {
 
 
 	/**
-	 * @return
+	 * Fetching all the rulenames entity in the database
+	 * 
+	 * @return A list of rulenames
 	 */
 	public List<RuleName> getAllRuleNames() {
 		
@@ -38,8 +40,10 @@ public class RuleNameService {
 	}
 
 	/**
-	 * @param id
-	 * @return
+	 * Fetching one rulename entity depending of the id in the database
+	 * 
+	 * @param id of the rulename
+	 * @return rulename
 	 */
 	public RuleName getRuleNameById(Integer id) {
 
@@ -53,7 +57,9 @@ public class RuleNameService {
 	}
 
 	/**
-	 * @param ruleName
+	 * Add new valid rulename entity in the database
+	 * 
+	 * @param new ruleName
 	 */
 	public void addNewRuleName(@Valid RuleName ruleName) {
 
@@ -64,7 +70,9 @@ public class RuleNameService {
 	}
 
 	/**
-	 * @param ruleName
+	 * Update a valid existing rulename entity in the database
+	 * 
+	 * @param update ruleName
 	 */
 	public void updateRuleName(@Valid RuleName ruleName) {
 
@@ -101,8 +109,10 @@ public class RuleNameService {
 	}
 
 	/**
-	 * @param id
-	 * @return
+	 * Delete an existing rulename entity in the database depending of the id
+	 * 
+	 * @param id of the rulename
+	 * @return true if delete
 	 */
 	public boolean deleteRuleName(Integer id) {
 

@@ -14,7 +14,7 @@ import com.nnk.springboot.repositories.UserRepository;
 import jakarta.validation.Valid;
 
 /**
- *
+ * This service contain all the methods to execute CRUD operations for the user domain
  */
 @Service
 public class UserService {
@@ -25,7 +25,9 @@ public class UserService {
 	private UserRepository userRepository;
 
 	/**
-	 * @return
+	 * Fetching all users entity in the database
+	 * 
+	 * @return A list of users
 	 */
 	public List<User> getAllUsers() {
 
@@ -38,8 +40,10 @@ public class UserService {
 	}
 
 	/**
-	 * @param id
-	 * @return
+	 * Fetching one user entity in the database depending of the id
+	 * 
+	 * @param id of the user
+	 * @return User
 	 */
 	public User getUserById(Integer id) {
 
@@ -53,7 +57,9 @@ public class UserService {
 	}
 
 	/**
-	 * @param user
+	 * Add a new user entity in the database
+	 * 
+	 * @param new user
 	 */
 	public void addNewUser(@Valid User user) {
 
@@ -67,7 +73,9 @@ public class UserService {
 	}
 
 	/**
-	 * @param user
+	 * Update the existing user entity in the database
+	 * 
+	 * @param update user
 	 */
 	public void updateUser(@Valid User user) {
 
@@ -97,8 +105,10 @@ public class UserService {
 	}
 
 	/**
-	 * @param id
-	 * @return
+	 * Delete an existing user entity in the database depending of the id
+	 * 
+	 * @param id of the user
+	 * @return true if delete
 	 */
 	public boolean deleteUser(Integer id) {
 

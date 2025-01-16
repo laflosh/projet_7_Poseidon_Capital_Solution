@@ -13,7 +13,7 @@ import com.nnk.springboot.repositories.BidListRepository;
 import jakarta.validation.Valid;
 
 /**
- *
+ * This service contain all the methods to execute CRUD operations for the bidlist domain
  */
 @Service
 public class BidListService {
@@ -24,7 +24,9 @@ public class BidListService {
 	private BidListRepository bidListRepository;
 
 	/**
-	 * @return
+	 * Fetching all the bidlists entity in the database
+	 * 
+	 * @return A list of bidlists
 	 */
 	public List<BidList> getAllBidLists() {
 
@@ -36,8 +38,10 @@ public class BidListService {
 	}
 
 	/**
-	 * @param id
-	 * @return
+	 * Fetching one bidlist entity in the database depending of the id
+	 * 
+	 * @param id of the bidlist
+	 * @return Bidlist
 	 */
 	public BidList getBidListById(Integer id) {
 
@@ -51,7 +55,9 @@ public class BidListService {
 	}
 
 	/**
-	 * @param bid
+	 * Add a new bidlist entity in the database
+	 * 
+	 * @param new bid
 	 */
 	public void addNewBidList(@Valid BidList bid) {
 
@@ -62,7 +68,9 @@ public class BidListService {
 	}
 
 	/**
-	 * @param bidList
+	 * Update a bidlist entity existing in the database
+	 * 
+	 * @param update bidList
 	 */
 	public void updateBidList(@Valid BidList bidList) {
 
@@ -87,8 +95,10 @@ public class BidListService {
 	}
 
 	/**
-	 * @param id
-	 * @return
+	 * Delete an existing bidlist entity in the database depending of the id
+	 * 
+	 * @param id of the bidlist
+	 * @return true if delete
 	 */
 	public boolean deleteBidList(Integer id) {
 
