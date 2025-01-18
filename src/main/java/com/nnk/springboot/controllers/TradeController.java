@@ -99,7 +99,7 @@ public class TradeController {
     		model.addAttribute("trades", tradeService.getAllTrades());
     		model.addAttribute("username", auth.getName());
 
-    		return"trade/list";
+    		return"redirect:/trade/list";
 
     	} catch (Exception e) {
 
@@ -142,8 +142,8 @@ public class TradeController {
      * @param User auth
      * @return redirect to the trade's list page
      */
-    @PostMapping("/trade/update/{id}")
-    public String updateTrade(@PathVariable("id") Integer id, @Valid Trade trade, BindingResult result, Model model, Authentication auth) {
+    @PostMapping("/trade/update/{tradeId}")
+    public String updateTrade(@PathVariable("tradeId") Integer tradeId, @Valid Trade trade, BindingResult result, Model model, Authentication auth) {
 
     	if(result.hasErrors()) {
 
@@ -154,7 +154,7 @@ public class TradeController {
 
     	try {
 
-        	log.info("Trying to update the existing trade in the database with id : {} .", id);
+        	log.info("Trying to update the existing trade in the database with id : {} .", tradeId);
 
         	tradeService.updateTrade(trade);
 

@@ -96,7 +96,7 @@ public class RuleNameController {
         	model.addAttribute("ruleNames", ruleNameService.getAllRuleNames());
         	model.addAttribute("user", auth.getName());
 
-        	return "ruleName/list";
+        	return "redirect:/ruleName/list";
 
         } catch(Exception e) {
 

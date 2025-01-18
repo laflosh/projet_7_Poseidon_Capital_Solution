@@ -99,7 +99,7 @@ public class CurvePointController {
     		model.addAttribute("curvePoints", curvePointService.getAllCurvePoints());
     		model.addAttribute("username", auth.getName());
 
-            return "curvePoint/list";
+            return "redirect:/curvePoint/list";
 
     	} catch(Exception e) {
 

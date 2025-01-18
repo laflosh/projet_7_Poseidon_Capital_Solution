@@ -98,7 +98,7 @@ public class BidListController {
     		model.addAttribute("bidLists", bidListService.getAllBidLists());
     		model.addAttribute("username", auth.getName());
 
-    		return "bidList/list";
+    		return "redirect:/bidList/list";
 
     	} catch (Exception e) {
 
@@ -140,8 +140,8 @@ public class BidListController {
      * @param User auth
      * @return redirect to the bidlist's list page
      */
-    @PostMapping("/bidList/update/{id}")
-    public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList, BindingResult result, Model model, Authentication auth) {
+    @PostMapping("/bidList/update/{bidListId}")
+    public String updateBid(@PathVariable("bidListId") Integer bidListId, @Valid BidList bidList, BindingResult result, Model model, Authentication auth) {
 
     	if(result.hasErrors()) {
 
@@ -152,7 +152,7 @@ public class BidListController {
 
     	try {
 
-    		log.info("Trying to update the existing bidlist in database with id : {} .", id);
+    		log.info("Trying to update the existing bidlist in database with id : {} .", bidListId);
 
     		bidListService.updateBidList(bidList);
 

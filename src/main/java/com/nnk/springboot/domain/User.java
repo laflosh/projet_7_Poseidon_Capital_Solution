@@ -32,8 +32,19 @@ public class User {
     @Column(name = "role")
     @NotBlank(message = "Role is mandatory")
     private String role;
+    
+    public User() {
+    	
+    }
 
-    public Integer getId() {
+    public User(String username, String password, String fullname, String role) {
+		this.fullname = fullname;
+		this.username = username;
+		this.password = password;
+		this.role = role;
+	}
+
+	public Integer getId() {
         return id;
     }
 
