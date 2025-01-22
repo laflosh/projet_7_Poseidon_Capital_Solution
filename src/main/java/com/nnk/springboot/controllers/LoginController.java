@@ -17,8 +17,10 @@ public class LoginController {
 
     @GetMapping("login")
     public ModelAndView login() {
+    	
         ModelAndView mav = new ModelAndView();
         mav.setViewName("login");
+        
         return mav;
     }
 
