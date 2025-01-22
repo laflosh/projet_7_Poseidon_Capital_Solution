@@ -196,7 +196,7 @@ public class TradeController {
 
     	}
 
-    	return null;
+    	return "redirect:/trade/list";
 
     }
 }

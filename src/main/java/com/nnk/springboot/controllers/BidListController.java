@@ -194,7 +194,7 @@ public class BidListController {
 
        	}
 
-        return null;
+        return "redirect:/bidList/list";
 
     }
 

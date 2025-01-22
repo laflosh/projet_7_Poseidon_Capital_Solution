@@ -197,7 +197,7 @@ public class CurvePointController {
 
        	}
 
-        return null;
+        return "redirect:/curvePoint/list";
 
     }
 }

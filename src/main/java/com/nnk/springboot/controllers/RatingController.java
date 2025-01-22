@@ -195,7 +195,7 @@ public class RatingController {
 
     	}
 
-		return null;
+		return "redirect:/rating/list";
 
     }
 }

@@ -192,7 +192,7 @@ public class RuleNameController {
 
     	}
 
-		return null;
+		return "redirect:/ruleName/list";
 
     }
 

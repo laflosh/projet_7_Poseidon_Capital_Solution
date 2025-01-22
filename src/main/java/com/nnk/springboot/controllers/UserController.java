@@ -188,7 +188,7 @@ public class UserController {
 
     	}
 
-        return null;
+        return "redirect:/user/list";
 
     }
 
