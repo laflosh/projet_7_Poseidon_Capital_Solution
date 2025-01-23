@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.firewall.HttpFirewall;
+import org.springframework.security.web.firewall.StrictHttpFirewall;
 
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -40,7 +42,8 @@ public class SecurityConfig {
 						"users/delete"
 						).hasRole("ADMIN")
 				.requestMatchers("/static/**").permitAll()
-				.requestMatchers("/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
+				.requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
+				.requestMatchers("/favicon.ico").permitAll()
 				.requestMatchers("/user/**").permitAll()
 				.requestMatchers("/rating/**").authenticated()
 				.requestMatchers("/ruleName/**").authenticated()
@@ -58,10 +61,10 @@ public class SecurityConfig {
 					.logoutUrl("/logout")
         			.logoutSuccessHandler((request, response, authentication) -> {
         				response.setStatus(HttpServletResponse.SC_OK);
+        				response.sendRedirect("/");
         			})
         			.invalidateHttpSession(true)
         			.deleteCookies("JSESSIONID")
-        			.logoutSuccessUrl("/")
 				)
 	        .exceptionHandling(exception -> exception
 	                .accessDeniedPage("/app/error")
@@ -70,6 +73,18 @@ public class SecurityConfig {
 		return http.build();
 
 	}
+	
+    /**
+     * @return
+     */
+    @Bean
+    public HttpFirewall allowSemiColonFirewall() {
+    	StrictHttpFirewall firewall = new StrictHttpFirewall();
+
+    	firewall.setAllowSemicolon(true);
+
+    	return firewall;
+    }
 
 	/**
 	 * @return
