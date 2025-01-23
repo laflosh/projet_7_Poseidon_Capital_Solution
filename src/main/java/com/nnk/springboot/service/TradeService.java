@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.repositories.TradeRepository;
+import com.nnk.springboot.util.DataValidator;
 
 import jakarta.validation.Valid;
 
@@ -22,6 +23,10 @@ public class TradeService {
 
 	@Autowired
 	private TradeRepository tradeRepository;
+	
+	@Autowired
+	private DataValidator dataValidator;
+ 
 
 	/**
 	 * Fetching all trades entity in the database
@@ -62,9 +67,15 @@ public class TradeService {
 	 */
 	public void addNewTrade(@Valid Trade trade) {
 
-		log.info("Add new trade object in the database : {} .", trade);
+		if(dataValidator.checkString(trade.getAccount()) &&
+			dataValidator.checkString(trade.getType()) &&
+			dataValidator.checkDouble(trade.getBuyQuantity().toString()) == true) {
+			
+			log.info("Add new trade object in the database : {} .", trade);
 
-		tradeRepository.save(trade);
+			tradeRepository.save(trade);
+			
+		}
 
 	}
 
@@ -75,23 +86,29 @@ public class TradeService {
 	 */
 	public void updateTrade(@Valid Trade trade) {
 
-		log.info("Update trade object existing in the database with id : {} .", trade.getTradeId());
+		if(dataValidator.checkString(trade.getAccount()) &&
+			dataValidator.checkString(trade.getType()) &&
+			dataValidator.checkDouble(trade.getBuyQuantity().toString()) == true) {
+			
+			log.info("Update trade object existing in the database with id : {} .", trade.getTradeId());
 
-		Trade existingTrade = getTradeById(trade.getTradeId());
+			Trade existingTrade = getTradeById(trade.getTradeId());
 
-		if(trade.getAccount() != existingTrade.getAccount()) {
-			existingTrade.setAccount(trade.getAccount());
+			if(trade.getAccount() != existingTrade.getAccount()) {
+				existingTrade.setAccount(trade.getAccount());
+			}
+
+			if(trade.getType() != existingTrade.getType()) {
+				existingTrade.setType(trade.getType());
+			}
+
+			if(trade.getBuyQuantity() != existingTrade.getBuyQuantity()) {
+				existingTrade.setBuyQuantity(trade.getBuyQuantity());
+			}
+
+			tradeRepository.save(existingTrade);
+			
 		}
-
-		if(trade.getType() != existingTrade.getType()) {
-			existingTrade.setType(trade.getType());
-		}
-
-		if(trade.getBuyQuantity() != existingTrade.getBuyQuantity()) {
-			existingTrade.setBuyQuantity(trade.getBuyQuantity());
-		}
-
-		tradeRepository.save(existingTrade);
 
 	}
 

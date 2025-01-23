@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.repositories.BidListRepository;
+import com.nnk.springboot.util.DataValidator;
 
 import jakarta.validation.Valid;
 
@@ -22,6 +23,9 @@ public class BidListService {
 
 	@Autowired
 	private BidListRepository bidListRepository;
+	
+	@Autowired
+	private DataValidator dataValidator;
 
 	/**
 	 * Fetching all the bidlists entity in the database
@@ -59,11 +63,17 @@ public class BidListService {
 	 *
 	 * @param new bid
 	 */
-	public void addNewBidList(@Valid BidList bid) {
+	public void addNewBidList(@Valid BidList bidList) {
+		
+		if(dataValidator.checkString(bidList.getAccount()) &&
+			dataValidator.checkString(bidList.getType()) && 
+			dataValidator.checkDouble(bidList.getBidQuantity().toString()) == true) {
+			
+			log.info("Add new bidlist object in the database : {} .", bidList);
 
-		log.info("Add new bidlist object in the database : {} .", bid);
-
-		bidListRepository.save(bid);
+			bidListRepository.save(bidList);
+			
+		}
 
 	}
 
@@ -74,23 +84,29 @@ public class BidListService {
 	 */
 	public void updateBidList(@Valid BidList bidList) {
 
-		log.info("Update bidlist object existing in the database with id : {} .", bidList.getBidListId());
+		if(dataValidator.checkString(bidList.getAccount()) &&
+			dataValidator.checkString(bidList.getType()) && 
+			dataValidator.checkDouble(bidList.getBidQuantity().toString()) == true) {
+			
+			log.info("Update bidlist object existing in the database with id : {} .", bidList.getBidListId());
 
-		BidList existingBidList = getBidListById(bidList.getBidListId());
+			BidList existingBidList = getBidListById(bidList.getBidListId());
 
-		if(bidList.getAccount() != existingBidList.getAccount()) {
-			existingBidList.setAccount(bidList.getAccount());
+			if(bidList.getAccount() != existingBidList.getAccount()) {
+				existingBidList.setAccount(bidList.getAccount());
+			}
+
+			if(bidList.getType() != existingBidList.getType()) {
+				existingBidList.setType(bidList.getType());
+			}
+
+			if(bidList.getBidQuantity() != existingBidList.getBidQuantity()) {
+				existingBidList.setBidQuantity(bidList.getBidQuantity());
+			}
+
+			bidListRepository.save(existingBidList);
+			
 		}
-
-		if(bidList.getType() != existingBidList.getType()) {
-			existingBidList.setType(bidList.getType());
-		}
-
-		if(bidList.getBidQuantity() != existingBidList.getBidQuantity()) {
-			existingBidList.setBidQuantity(bidList.getBidQuantity());
-		}
-
-		bidListRepository.save(existingBidList);
 
 	}
 

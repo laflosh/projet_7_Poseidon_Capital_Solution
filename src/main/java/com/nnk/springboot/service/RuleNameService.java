@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.repositories.RuleNameRepository;
+import com.nnk.springboot.util.DataValidator;
 
 import jakarta.validation.Valid;
 
@@ -22,6 +23,9 @@ public class RuleNameService {
 
 	@Autowired
 	private RuleNameRepository ruleNameRepository;
+	
+	@Autowired
+	private DataValidator dataValidator;
 
 
 	/**
@@ -62,10 +66,19 @@ public class RuleNameService {
 	 * @param new ruleName
 	 */
 	public void addNewRuleName(@Valid RuleName ruleName) {
+		
+		if(dataValidator.checkString(ruleName.getName()) &&
+			dataValidator.checkString(ruleName.getDescription()) &&
+			dataValidator.checkString(ruleName.getJson()) &&
+			dataValidator.checkString(ruleName.getTemplate()) &&
+			dataValidator.checkString(ruleName.getSqlPart()) &&
+			dataValidator.checkString(ruleName.getSqlStr()) == true) {
+			
+			log.info("Add new rulename object in the database : {} .", ruleName);
 
-		log.info("Add new rulename object in the database : {} .", ruleName);
-
-		ruleNameRepository.save(ruleName);
+			ruleNameRepository.save(ruleName);
+			
+		}
 
 	}
 
@@ -76,35 +89,44 @@ public class RuleNameService {
 	 */
 	public void updateRuleName(@Valid RuleName ruleName) {
 
-		log.info("Update the rulename object existing in the database with id : {} .", ruleName.getId());
+		if(dataValidator.checkString(ruleName.getName()) &&
+			dataValidator.checkString(ruleName.getDescription()) &&
+			dataValidator.checkString(ruleName.getJson()) &&
+			dataValidator.checkString(ruleName.getTemplate()) &&
+			dataValidator.checkString(ruleName.getSqlPart()) &&
+			dataValidator.checkString(ruleName.getSqlStr()) == true) {
+			
+			log.info("Update the rulename object existing in the database with id : {} .", ruleName.getId());
 
-		RuleName existingRuleName = getRuleNameById(ruleName.getId());
+			RuleName existingRuleName = getRuleNameById(ruleName.getId());
 
-		if(ruleName.getName() != existingRuleName.getName()) {
-			existingRuleName.setName(ruleName.getName());
+			if(ruleName.getName() != existingRuleName.getName()) {
+				existingRuleName.setName(ruleName.getName());
+			}
+
+			if(ruleName.getDescription() != existingRuleName.getDescription()) {
+				existingRuleName.setDescription(ruleName.getDescription());
+			}
+
+			if(ruleName.getJson() != existingRuleName.getJson()) {
+				existingRuleName.setJson(ruleName.getJson());
+			}
+
+			if(ruleName.getTemplate() != existingRuleName.getTemplate()) {
+				existingRuleName.setTemplate(ruleName.getTemplate());
+			}
+
+			if(ruleName.getSqlStr() != existingRuleName.getSqlStr()) {
+				existingRuleName.setSqlStr(ruleName.getSqlStr());
+			}
+
+			if(ruleName.getSqlPart() != existingRuleName.getSqlPart()) {
+				existingRuleName.setSqlPart(ruleName.getSqlPart());
+			}
+
+			ruleNameRepository.save(existingRuleName);
+			
 		}
-
-		if(ruleName.getDescription() != existingRuleName.getDescription()) {
-			existingRuleName.setDescription(ruleName.getDescription());
-		}
-
-		if(ruleName.getJson() != existingRuleName.getJson()) {
-			existingRuleName.setJson(ruleName.getJson());
-		}
-
-		if(ruleName.getTemplate() != existingRuleName.getTemplate()) {
-			existingRuleName.setTemplate(ruleName.getTemplate());
-		}
-
-		if(ruleName.getSqlStr() != existingRuleName.getSqlStr()) {
-			existingRuleName.setSqlStr(ruleName.getSqlStr());
-		}
-
-		if(ruleName.getSqlPart() != existingRuleName.getSqlPart()) {
-			existingRuleName.setSqlPart(ruleName.getSqlPart());
-		}
-
-		ruleNameRepository.save(existingRuleName);
 
 	}
 

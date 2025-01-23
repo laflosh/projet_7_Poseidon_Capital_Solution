@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
+import com.nnk.springboot.util.DataValidator;
 
 import jakarta.validation.Valid;
 
@@ -23,6 +24,9 @@ public class UserService {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private DataValidator dataValidator;
 
 	/**
 	 * Fetching all users entity in the database
@@ -63,12 +67,18 @@ public class UserService {
 	 */
 	public void addNewUser(@Valid User user) {
 
-		log.info("Add new user object in the database : {} .", user);
+		if(dataValidator.checkString(user.getUsername()) &&
+			dataValidator.checkString(user.getFullname()) &&
+			dataValidator.checkString(user.getPassword()) == true) {
+			
+			log.info("Add new user object in the database : {} .", user);
 
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        user.setPassword(encoder.encode(user.getPassword()));
+	        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+	        user.setPassword(encoder.encode(user.getPassword()));
 
-        userRepository.save(user);
+	        userRepository.save(user);
+			
+		}
 
 	}
 
@@ -79,28 +89,34 @@ public class UserService {
 	 */
 	public void updateUser(@Valid User user) {
 
-		log.info("Update user object existing in the database with id : {} .", user.getId());
+		if(dataValidator.checkString(user.getUsername()) &&
+			dataValidator.checkString(user.getFullname()) &&
+			dataValidator.checkString(user.getPassword()) == true) {
+			
+			log.info("Update user object existing in the database with id : {} .", user.getId());
 
-		User existingUser = getUserById(user.getId());
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			User existingUser = getUserById(user.getId());
+	        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-		if(user.getFullname() != existingUser.getFullname()) {
-			existingUser.setFullname(user.getFullname());
+			if(user.getFullname() != existingUser.getFullname()) {
+				existingUser.setFullname(user.getFullname());
+			}
+
+			if(user.getUsername() != existingUser.getUsername()) {
+				existingUser.setUsername(user.getUsername());
+			}
+
+	        if(user.getPassword() != existingUser.getPassword()) {
+	        	existingUser.setPassword(encoder.encode(user.getPassword()));
+	        }
+
+	        if(user.getRole() != existingUser.getRole()) {
+	        	existingUser.setRole(user.getRole());
+	        }
+
+	        userRepository.save(existingUser);
+			
 		}
-
-		if(user.getUsername() != existingUser.getUsername()) {
-			existingUser.setUsername(user.getUsername());
-		}
-
-        if(user.getPassword() != existingUser.getPassword()) {
-        	existingUser.setPassword(encoder.encode(user.getPassword()));
-        }
-
-        if(user.getRole() != existingUser.getRole()) {
-        	existingUser.setRole(user.getRole());
-        }
-
-        userRepository.save(existingUser);
 
 	}
 

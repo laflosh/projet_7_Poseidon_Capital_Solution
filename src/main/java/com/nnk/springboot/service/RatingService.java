@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.repositories.RatingRepository;
+import com.nnk.springboot.util.DataValidator;
 
 import jakarta.validation.Valid;
 
@@ -22,6 +23,9 @@ public class RatingService {
 
 	@Autowired
 	private RatingRepository ratingRepository;
+	
+	@Autowired
+	DataValidator dataValidator;
 
 	/**
 	 * Fetching all the ratings entity in the database
@@ -61,9 +65,16 @@ public class RatingService {
 	 */
 	public void addNewRating(@Valid Rating rating) {
 
-		log.info("Add a new rating object in the database : {} .", rating);
+		if(dataValidator.checkString(rating.getMoodysRating()) && 
+			dataValidator.checkString(rating.getSandPRating()) &&
+			dataValidator.checkString(rating.getFitchRating()) &&
+			dataValidator.checkInteger(rating.getOrderNumber()) == true) {
+			
+			log.info("Add a new rating object in the database : {} .", rating);
 
-		ratingRepository.save(rating);
+			ratingRepository.save(rating);
+			
+		}
 
 	}
 
@@ -74,27 +85,34 @@ public class RatingService {
 	 */
 	public void updateRating(@Valid Rating rating) {
 
-		log.info("Update the rating object existing in the database with id : {} .", rating.getId());
+		if(dataValidator.checkString(rating.getMoodysRating()) && 
+				dataValidator.checkString(rating.getSandPRating()) &&
+				dataValidator.checkString(rating.getFitchRating()) &&
+				dataValidator.checkInteger(rating.getOrderNumber()) == true) {
+			
+			log.info("Update the rating object existing in the database with id : {} .", rating.getId());
 
-		Rating existingRating = getRatingById(rating.getId());
+			Rating existingRating = getRatingById(rating.getId());
 
-		if(rating.getMoodysRating() != existingRating.getMoodysRating()) {
-			existingRating.setMoodysRating(rating.getMoodysRating());
+			if(rating.getMoodysRating() != existingRating.getMoodysRating()) {
+				existingRating.setMoodysRating(rating.getMoodysRating());
+			}
+
+			if(rating.getSandPRating() != existingRating.getSandPRating()) {
+				existingRating.setSandPRating(rating.getSandPRating());
+			}
+
+			if(rating.getFitchRating() != existingRating.getFitchRating()) {
+				existingRating.setFitchRating(rating.getFitchRating());
+			}
+
+			if(rating.getOrderNumber() != existingRating.getOrderNumber()) {
+				existingRating.setOrderNumber(rating.getOrderNumber());
+			}
+
+			ratingRepository.save(existingRating);
+			
 		}
-
-		if(rating.getSandPRating() != existingRating.getSandPRating()) {
-			existingRating.setSandPRating(rating.getSandPRating());
-		}
-
-		if(rating.getFitchRating() != existingRating.getFitchRating()) {
-			existingRating.setFitchRating(rating.getFitchRating());
-		}
-
-		if(rating.getOrderNumber() != existingRating.getOrderNumber()) {
-			existingRating.setOrderNumber(rating.getOrderNumber());
-		}
-
-		ratingRepository.save(existingRating);
 
 	}
 

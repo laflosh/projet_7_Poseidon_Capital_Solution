@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.repositories.CurvePointRepository;
+import com.nnk.springboot.util.DataValidator;
 
 import jakarta.validation.Valid;
 
@@ -22,6 +23,9 @@ public class CurvePointService {
 
 	@Autowired
 	private CurvePointRepository curvePointRepository;
+	
+	@Autowired
+	private DataValidator dataValidator;
 
 	/**
 	 * Fetching all the cruvepoints entity in the database
@@ -62,9 +66,14 @@ public class CurvePointService {
 	 */
 	public void addNewCurvePoint(@Valid CurvePoint curvePoint) {
 
-		log.info("Add new curvepoint object in database : {} .", curvePoint);
+		if(dataValidator.checkDouble(curvePoint.getTerm().toString()) && 
+			dataValidator.checkDouble(curvePoint.getValue().toString()) == true ) {
+			
+			log.info("Add new curvepoint object in database : {} .", curvePoint);
 
-		curvePointRepository.save(curvePoint);
+			curvePointRepository.save(curvePoint);
+			
+		}
 
 	}
 
@@ -75,19 +84,24 @@ public class CurvePointService {
 	 */
 	public void updateCurvePoint(@Valid CurvePoint curvePoint) {
 
-		log.info("Update the curvepoint object existing in the database with id : {} .", curvePoint.getId());
+		if(dataValidator.checkDouble(curvePoint.getTerm().toString()) && 
+			dataValidator.checkDouble(curvePoint.getValue().toString()) == true) {
+			
+			log.info("Update the curvepoint object existing in the database with id : {} .", curvePoint.getId());
 
-		CurvePoint existingCurvePoint = getCurvePointById(curvePoint.getId());
+			CurvePoint existingCurvePoint = getCurvePointById(curvePoint.getId());
 
-		if(curvePoint.getTerm() != existingCurvePoint.getTerm()) {
-			existingCurvePoint.setTerm(curvePoint.getTerm());
+			if(curvePoint.getTerm() != existingCurvePoint.getTerm()) {
+				existingCurvePoint.setTerm(curvePoint.getTerm());
+			}
+
+			if(curvePoint.getValue() != existingCurvePoint.getValue()) {
+				existingCurvePoint.setValue(curvePoint.getValue());
+			}
+
+			curvePointRepository.save(existingCurvePoint);
+			
 		}
-
-		if(curvePoint.getValue() != existingCurvePoint.getValue()) {
-			existingCurvePoint.setValue(curvePoint.getValue());
-		}
-
-		curvePointRepository.save(existingCurvePoint);
 
 	}
 
