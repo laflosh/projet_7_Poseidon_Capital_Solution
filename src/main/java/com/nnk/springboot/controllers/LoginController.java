@@ -15,6 +15,9 @@ public class LoginController {
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * @return
+     */
     @GetMapping("login")
     public ModelAndView login() {
 
@@ -24,6 +27,9 @@ public class LoginController {
         return mav;
     }
 
+    /**
+     * @return
+     */
     @GetMapping("secure/article-details")
     public ModelAndView getAllUserArticles() {
 
@@ -36,6 +42,9 @@ public class LoginController {
 
     }
 
+    /**
+     * @return
+     */
     @GetMapping("error")
     public ModelAndView error() {
 
