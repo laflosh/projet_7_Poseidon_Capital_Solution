@@ -32,7 +32,7 @@ public class BidListController {
 
     /**
      * Fetching all the bidlists and return the page list to see all bidlists
-     * 
+     *
      * @param model
      * @param user auth
      * @return bidlist'list page
@@ -53,7 +53,7 @@ public class BidListController {
 
     /**
      * Return the add page with an empty bidlist entity
-     * 
+     *
      * @param New empty bid
      * @param model
      * @return bidlist's add page
@@ -70,9 +70,9 @@ public class BidListController {
     }
 
     /**
-     * Check all the data in the new entity, save it in the database 
+     * Check all the data in the new entity, save it in the database
      * and redirect to the bidlist's list page
-     * 
+     *
      * @param new bid
      * @param result
      * @param model
@@ -110,9 +110,9 @@ public class BidListController {
     }
 
     /**
-     * Get the bidlist entity to update the data, add it to the model of the update page 
+     * Get the bidlist entity to update the data, add it to the model of the update page
      * and return the update page with the bidlist entity
-     * 
+     *
      * @param id of the bidlist
      * @param model
      * @return bidlist's update page
@@ -132,7 +132,7 @@ public class BidListController {
     /**
      * Check all data in the update entity, save it in the database
      * and redirect to the bidlist's list page
-     * 
+     *
      * @param id of the bidlist
      * @param update bidList
      * @param result
@@ -172,7 +172,7 @@ public class BidListController {
 
     /**
      * Delete the selected bidlist entity and redirect to the bidlist's list page
-     * 
+     *
      * @param id of the bidlist
      * @param model
      * @param User auth

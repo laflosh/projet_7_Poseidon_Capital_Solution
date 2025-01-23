@@ -25,41 +25,41 @@ public class TradeControllerTest {
 
 	@Autowired
 	MockMvc mockMvc;
-	
+
 	@Autowired
 	TradeRepository tradeRepository;
-	
+
 	@Test
 	@WithMockUser
 	public void getAllTradesInDatabaseAndReturnListPageWithData() throws Exception {
-		
+
 		//Testing request
 		mockMvc.perform(MockMvcRequestBuilders.get("/trade/list"))
 			.andDo(MockMvcResultHandlers.print())
 			.andExpect(MockMvcResultMatchers.status().isOk())
 			.andExpect(MockMvcResultMatchers.model().attributeExists("trades"))
 			.andExpect(MockMvcResultMatchers.view().name("trade/list"));
-		
+
 	}
-	
+
 	@Test
 	@WithMockUser
 	public void getAccessToTheAddingPageAndCountainEmptyEntity() throws Exception {
-		
+
 		//Testing request
 		mockMvc.perform(MockMvcRequestBuilders.get("/trade/add"))
 			.andDo(MockMvcResultHandlers.print())
 			.andExpect(MockMvcResultMatchers.status().isOk())
 			.andExpect(MockMvcResultMatchers.model().attributeExists("trade"))
 			.andExpect(MockMvcResultMatchers.view().name("trade/add"));
-		
+
 	}
-	
+
 	@Test
 	@WithMockUser
 	@Transactional
 	public void postNewValidTradeAndRedirectToThePageList() throws Exception {
-		
+
 		//Testing request
 		mockMvc.perform(MockMvcRequestBuilders.post("/trade/validate")
 				.with(SecurityMockMvcRequestPostProcessors.csrf())
@@ -69,20 +69,20 @@ public class TradeControllerTest {
 			.andDo(MockMvcResultHandlers.print())
 			.andExpect(MockMvcResultMatchers.status().isFound())
 			.andExpect(MockMvcResultMatchers.view().name("redirect:/trade/list"));
-		
+
 		//Get the last trade save in database
 		List<Trade> trades = tradeRepository.findAll();
 		Trade trade = trades.get(trades.size() - 1);
-		
+
 		//Delete the object who was created
 		tradeRepository.delete(trade);
-		
+
 	}
-	
+
 	@Test
 	@WithMockUser
 	public void postNoneValidateTradedAndShowFieldsError() throws Exception {
-		
+
 		//Testing request
 		mockMvc.perform(MockMvcRequestBuilders.post("/trade/validate")
 				.with(SecurityMockMvcRequestPostProcessors.csrf()))
@@ -91,47 +91,47 @@ public class TradeControllerTest {
 			.andExpect(MockMvcResultMatchers.model()
 					.attributeHasFieldErrors("trade","account", "type", "buyQuantity"))
 			.andExpect(MockMvcResultMatchers.view().name("trade/add"));
-		
+
 	}
-	
+
 	@Test
 	@WithMockUser
 	@Transactional
 	public void getTheUpdatePageAndCountainTheObject() throws Exception {
-		
+
 		//Save a new rating entity
 		Trade newTrade = new Trade("ACCOUNT", "TYPE", 1.0);
 		tradeRepository.save(newTrade);
-		
+
 		//Get the last trade save in database
 		List<Trade> trades = tradeRepository.findAll();
 		Trade trade = trades.get(trades.size() - 1);
-		
+
 		//Testing request
 		mockMvc.perform(MockMvcRequestBuilders.get("/trade/update/" + trade.getTradeId()))
 			.andDo(MockMvcResultHandlers.print())
 			.andExpect(MockMvcResultMatchers.status().isOk())
 			.andExpect(MockMvcResultMatchers.model().attributeExists("trade"))
 			.andExpect(MockMvcResultMatchers.view().name("trade/update"));
-		
+
 		//Delete the object who was created
 		tradeRepository.delete(trade);
-		
+
 	}
-	
+
 	@Test
 	@WithMockUser
 	@Transactional
 	public void postValidateUpdateTradeAndRedirectToThePageList() throws Exception {
-		
+
 		//Save a new rating entity
 		Trade newTrade = new Trade("ACCOUNT", "TYPE", 1.0);
 		tradeRepository.save(newTrade);
-		
+
 		//Get the last trade save in database
 		List<Trade> trades = tradeRepository.findAll();
 		Trade trade = trades.get(trades.size() - 1);
-		
+
 		//Testing request
 		mockMvc.perform(MockMvcRequestBuilders.post("/trade/update/" + trade.getTradeId())
 				.with(SecurityMockMvcRequestPostProcessors.csrf())
@@ -141,25 +141,25 @@ public class TradeControllerTest {
 			.andDo(MockMvcResultHandlers.print())
 			.andExpect(MockMvcResultMatchers.status().isFound())
 			.andExpect(MockMvcResultMatchers.view().name("redirect:/trade/list"));
-		
+
 		//Delete the object who was created
 		tradeRepository.delete(trade);
-		
+
 	}
-	
+
 	@Test
 	@WithMockUser
 	@Transactional
 	public void postNoneValidateUpdateTradeAndShowFieldsError() throws Exception {
-		
+
 		//Save a new rating entity
 		Trade newTrade = new Trade("ACCOUNT", "TYPE", 1.0);
 		tradeRepository.save(newTrade);
-		
+
 		//Get the last trade save in database
 		List<Trade> trades = tradeRepository.findAll();
 		Trade trade = trades.get(trades.size() - 1);
-		
+
 		//Testing request
 		mockMvc.perform(MockMvcRequestBuilders.post("/trade/update/" + trade.getTradeId())
 				.with(SecurityMockMvcRequestPostProcessors.csrf()))
@@ -168,29 +168,29 @@ public class TradeControllerTest {
 			.andExpect(MockMvcResultMatchers.model()
 					.attributeHasFieldErrors("trade","account", "type", "buyQuantity"))
 			.andExpect(MockMvcResultMatchers.view().name("trade/update"));
-		
+
 	}
-	
+
 	@Test
 	@WithMockUser
 	@Transactional
 	public void deleteAnExistingBidListObjectInTheDatabase() throws Exception {
-		
+
 		//Save a new rating entity
 		Trade newTrade = new Trade("ACCOUNT", "TYPE", 1.0);
 		tradeRepository.save(newTrade);
-		
+
 		//Get the last trade save in database
 		List<Trade> trades = tradeRepository.findAll();
 		Trade trade = trades.get(trades.size() - 1);
-		
+
 		//Testing Request
 		mockMvc.perform(MockMvcRequestBuilders.get("/trade/delete/" + trade.getTradeId())
 				.with(SecurityMockMvcRequestPostProcessors.csrf()))
 			.andDo(MockMvcResultHandlers.print())
 			.andExpect(MockMvcResultMatchers.status().isFound())
 			.andExpect(MockMvcResultMatchers.view().name("redirect:/trade/list"));
-		
+
 	}
 
 }

@@ -25,13 +25,13 @@ public class BidListService {
 
 	/**
 	 * Fetching all the bidlists entity in the database
-	 * 
+	 *
 	 * @return A list of bidlists
 	 */
 	public List<BidList> getAllBidLists() {
 
 		log.info("Get all bidlists in the database");
-		
+
 		List<BidList> bidLists = bidListRepository.findAll();
 
 		return bidLists;
@@ -39,14 +39,14 @@ public class BidListService {
 
 	/**
 	 * Fetching one bidlist entity in the database depending of the id
-	 * 
+	 *
 	 * @param id of the bidlist
 	 * @return Bidlist
 	 */
 	public BidList getBidListById(Integer id) {
 
 		log.info("Get one bidlist in the database");
-		
+
 		BidList bidList = bidListRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("BidList not found."));
 
@@ -56,36 +56,36 @@ public class BidListService {
 
 	/**
 	 * Add a new bidlist entity in the database
-	 * 
+	 *
 	 * @param new bid
 	 */
 	public void addNewBidList(@Valid BidList bid) {
 
 		log.info("Add new bidlist object in the database : {} .", bid);
-		
+
 		bidListRepository.save(bid);
 
 	}
 
 	/**
 	 * Update a bidlist entity existing in the database
-	 * 
+	 *
 	 * @param update bidList
 	 */
 	public void updateBidList(@Valid BidList bidList) {
 
 		log.info("Update bidlist object existing in the database with id : {} .", bidList.getBidListId());
-		
+
 		BidList existingBidList = getBidListById(bidList.getBidListId());
 
 		if(bidList.getAccount() != existingBidList.getAccount()) {
 			existingBidList.setAccount(bidList.getAccount());
 		}
-		
+
 		if(bidList.getType() != existingBidList.getType()) {
 			existingBidList.setType(bidList.getType());
 		}
-		
+
 		if(bidList.getBidQuantity() != existingBidList.getBidQuantity()) {
 			existingBidList.setBidQuantity(bidList.getBidQuantity());
 		}
@@ -96,14 +96,14 @@ public class BidListService {
 
 	/**
 	 * Delete an existing bidlist entity in the database depending of the id
-	 * 
+	 *
 	 * @param id of the bidlist
 	 * @return true if delete
 	 */
 	public boolean deleteBidList(Integer id) {
 
 		log.info("Delete bidlist in the database with id : {} .", id);
-		
+
 		if(bidListRepository.existsById(id)) {
 
 			bidListRepository.deleteById(id);

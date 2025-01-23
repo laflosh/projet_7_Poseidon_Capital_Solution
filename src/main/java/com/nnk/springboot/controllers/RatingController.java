@@ -32,7 +32,7 @@ public class RatingController {
 
     /**
      * Fetching all the ratings and return the page list to see all the rating
-     * 
+     *
      * @param model
      * @param user auth
      * @return rating's page list
@@ -52,8 +52,8 @@ public class RatingController {
     }
 
     /**
-     * Return the add page for rating with an empty rating entity 
-     * 
+     * Return the add page for rating with an empty rating entity
+     *
      * @param New empty rating
      * @param model
      * @return rating's add page
@@ -70,9 +70,9 @@ public class RatingController {
     }
 
     /**
-     * Check all the data in the new entity, save it in the database 
+     * Check all the data in the new entity, save it in the database
      * and redirect to the rating's list page
-     * 
+     *
      * @param new rating
      * @param result
      * @param model
@@ -110,9 +110,9 @@ public class RatingController {
     }
 
     /**
-     * Get the rating entity to update the data, add it to the model of the update page 
+     * Get the rating entity to update the data, add it to the model of the update page
      * and return the update page with the rating entity
-     * 
+     *
      * @param id of the rating to update
      * @param model
      * @return rating's update page
@@ -133,7 +133,7 @@ public class RatingController {
     /**
      * Check all data in the update entity, save it in the database
      * and redirect to the rating's list page
-     * 
+     *
      * @param id of the update rating
      * @param update rating
      * @param result
@@ -173,7 +173,7 @@ public class RatingController {
 
     /**
      * Delete the selected rating entity and redirect to the rating's list page
-     * 
+     *
      * @param id of the rating
      * @param model
      * @param User auth

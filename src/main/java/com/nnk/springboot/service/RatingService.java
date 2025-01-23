@@ -25,11 +25,11 @@ public class RatingService {
 
 	/**
 	 * Fetching all the ratings entity in the database
-	 * 
+	 *
 	 * @return A list of ratings
 	 */
 	public List<Rating> getAllRatings() {
-		
+
 		log.info("Get all ratings in the database.");
 
 		List<Rating> ratings = ratingRepository.findAll();
@@ -40,12 +40,12 @@ public class RatingService {
 
 	/**
 	 * Fetching one rating depending of the id in the database
-	 * 
+	 *
 	 * @param id of the rating
 	 * @return Rating
 	 */
 	public Rating getRatingById(Integer id) {
-		
+
 		log.info("get one rating by the id : {} .", id);
 
 		Rating rating = ratingRepository.findById(id)
@@ -56,26 +56,26 @@ public class RatingService {
 
 	/**
 	 * Add a new valid rating entity in the database
-	 * 
+	 *
 	 * @param new rating
 	 */
 	public void addNewRating(@Valid Rating rating) {
 
 		log.info("Add a new rating object in the database : {} .", rating);
-		
+
 		ratingRepository.save(rating);
 
 	}
 
 	/**
 	 * Update a valid existing rating entity in the database
-	 * 
+	 *
 	 * @param update rating
 	 */
 	public void updateRating(@Valid Rating rating) {
 
 		log.info("Update the rating object existing in the database with id : {} .", rating.getId());
-		
+
 		Rating existingRating = getRatingById(rating.getId());
 
 		if(rating.getMoodysRating() != existingRating.getMoodysRating()) {
@@ -89,7 +89,7 @@ public class RatingService {
 		if(rating.getFitchRating() != existingRating.getFitchRating()) {
 			existingRating.setFitchRating(rating.getFitchRating());
 		}
-		
+
 		if(rating.getOrderNumber() != existingRating.getOrderNumber()) {
 			existingRating.setOrderNumber(rating.getOrderNumber());
 		}
@@ -100,14 +100,14 @@ public class RatingService {
 
 	/**
 	 * Delete an existing rating entity in the database depending of the id
-	 * 
+	 *
 	 * @param id of the rating
 	 * @return true if delete
 	 */
 	public boolean deleteRating(Integer id) {
 
 		log.info("Delete the rating object in the database with id : {} .", id);
-		
+
 		if(ratingRepository.existsById(id)) {
 
 			ratingRepository.deleteById(id);

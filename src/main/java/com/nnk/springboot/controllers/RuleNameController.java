@@ -32,7 +32,7 @@ public class RuleNameController {
 
     /**
      * Fetching all the rulenames and return the page list to see all rulenames
-     * 
+     *
      * @param model
      * @param User auth
      * @return rulename's page list
@@ -52,7 +52,7 @@ public class RuleNameController {
 
     /**
      * Return the add page with an empty rulename entity
-     * 
+     *
      * @param New empty ruleName
      * @param model
      * @return rulename's add page
@@ -68,9 +68,9 @@ public class RuleNameController {
     }
 
     /**
-     * Check all the data in the new entity, save it in the database 
+     * Check all the data in the new entity, save it in the database
      * and redirect to the rulename's list page
-     * 
+     *
      * @param New ruleName
      * @param result
      * @param model
@@ -108,9 +108,9 @@ public class RuleNameController {
     }
 
     /**
-     * Get the rulename entity to update the data, add it to the model of the update page 
+     * Get the rulename entity to update the data, add it to the model of the update page
      * and return the update page with the rulename entity
-     * 
+     *
      * @param id of the rulename
      * @param model
      * @return rulename's update page
@@ -130,7 +130,7 @@ public class RuleNameController {
     /**
      * Check all data in the update entity, save it in the database
      * and redirect to the rulename's list page
-     * 
+     *
      * @param id of the rulename
      * @param update ruleName
      * @param result
@@ -170,7 +170,7 @@ public class RuleNameController {
 
     /**
      * Delete the selected rulename entity and redirect to the rulename's list page
-     * 
+     *
      * @param id of the rulename
      * @param model
      * @param User auth

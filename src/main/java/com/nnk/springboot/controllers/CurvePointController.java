@@ -32,7 +32,7 @@ public class CurvePointController {
 
     /**
      * Fetching all the curvepoints and return the page list to see all curvepoints
-     * 
+     *
      * @param model
      * @param User auth
      * @return curvepoint's list page
@@ -54,7 +54,7 @@ public class CurvePointController {
 
     /**
      * Return the add page with an empty curvepoint entity
-     * 
+     *
      * @param New empty curvePoint
      * @param model
      * @return curvepoint's add page
@@ -71,9 +71,9 @@ public class CurvePointController {
     }
 
     /**
-     * Check all the data in the new entity, save it in the database 
+     * Check all the data in the new entity, save it in the database
      * and redirect to the curvepoint's list page
-     * 
+     *
      * @param new curvePoint
      * @param result
      * @param model
@@ -112,9 +112,9 @@ public class CurvePointController {
     }
 
     /**
-     * Get the curvepoint entity to update the data, add it to the model of the update page 
+     * Get the curvepoint entity to update the data, add it to the model of the update page
      * and return the update page with the curvepoint entity
-     * 
+     *
      * @param id of the curvepoint
      * @param model
      * @return curvepoint's update page
@@ -135,7 +135,7 @@ public class CurvePointController {
     /**
      * Check all data in the update entity, save it in the database
      * and redirect to the curvepoint's list page
-     * 
+     *
      * @param id of the curvepoint
      * @param update curvePoint
      * @param result
@@ -175,7 +175,7 @@ public class CurvePointController {
 
     /**
      * Delete the selected curvepoint entity and redirect to the curvepoint's list page
-     * 
+     *
      * @param id
      * @param model
      * @param User auth

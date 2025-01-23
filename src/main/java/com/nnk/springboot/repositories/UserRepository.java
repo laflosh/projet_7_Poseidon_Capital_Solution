@@ -8,5 +8,5 @@ import com.nnk.springboot.domain.User;
 public interface UserRepository extends JpaRepository<User, Integer>, JpaSpecificationExecutor<User> {
 
 	public User findByUsername(String username);
-	
+
 }

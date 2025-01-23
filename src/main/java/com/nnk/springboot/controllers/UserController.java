@@ -31,7 +31,7 @@ public class UserController {
 
     /**
      * Fetching all the users and return the page list to see all users
-     * 
+     *
      * @param model
      * @return user's list page
      */
@@ -51,7 +51,7 @@ public class UserController {
 
     /**
      * Return the add page with an empty user entity
-     * 
+     *
      * @param New empty user
      * @param model
      * @return user's add page
@@ -68,9 +68,9 @@ public class UserController {
     }
 
     /**
-     * Check all the data in the new entity, save it in the database 
+     * Check all the data in the new entity, save it in the database
      * and redirect to the user's list page
-     * 
+     *
      * @param new user
      * @param result
      * @param model
@@ -106,9 +106,9 @@ public class UserController {
     }
 
     /**
-     * Get the user entity to update the data, add it to the model of the update page 
+     * Get the user entity to update the data, add it to the model of the update page
      * and return the update page with the user entity
-     * 
+     *
      * @param id of the user
      * @param model
      * @return user's update page
@@ -130,7 +130,7 @@ public class UserController {
     /**
      * Check all data in the update entity, save it in the database
      * and redirect to the user's list page
-     * 
+     *
      * @param id of the user
      * @param update user
      * @param result
@@ -168,7 +168,7 @@ public class UserController {
 
     /**
      * Delete the selected user entity and redirect to the user's list page
-     * 
+     *
      * @param id of the user
      * @param model
      * @return redirect to the user's list page

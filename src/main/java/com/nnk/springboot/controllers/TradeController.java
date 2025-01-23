@@ -32,7 +32,7 @@ public class TradeController {
 
     /**
      * Fetching all the trades and return the page list to see all trades
-     * 
+     *
      * @param model
      * @param User auth
      * @return trade's list page
@@ -54,7 +54,7 @@ public class TradeController {
 
     /**
      * Return the add page with an empty trade entity
-     * 
+     *
      * @param New empty trade
      * @param model
      * @return trade's add page
@@ -71,9 +71,9 @@ public class TradeController {
     }
 
     /**
-     * Check all the data in the new entity, save it in the database 
+     * Check all the data in the new entity, save it in the database
      * and redirect to the trade's list page
-     * 
+     *
      * @param New trade
      * @param result
      * @param model
@@ -111,9 +111,9 @@ public class TradeController {
     }
 
     /**
-     * Get the trade entity to update the data, add it to the model of the update page 
+     * Get the trade entity to update the data, add it to the model of the update page
      * and return the update page with the trade entity
-     * 
+     *
      * @param id of the trade
      * @param model
      * @return trade's update page
@@ -134,7 +134,7 @@ public class TradeController {
     /**
      * Check all data in the update entity, save it in the database
      * and redirect to the trade's list page
-     * 
+     *
      * @param id of the trade
      * @param update trade
      * @param result
@@ -174,7 +174,7 @@ public class TradeController {
 
     /**
      * Delete the selected trade entity and redirect to the trade's list page
-     * 
+     *
      * @param id of the trade
      * @param model
      * @param User auth

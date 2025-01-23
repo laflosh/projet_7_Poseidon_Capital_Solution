@@ -26,13 +26,13 @@ public class UserService {
 
 	/**
 	 * Fetching all users entity in the database
-	 * 
+	 *
 	 * @return A list of users
 	 */
 	public List<User> getAllUsers() {
 
 		log.info("Get all users in the database.");
-		
+
 		List<User> users = userRepository.findAll();
 
 		return users;
@@ -41,14 +41,14 @@ public class UserService {
 
 	/**
 	 * Fetching one user entity in the database depending of the id
-	 * 
+	 *
 	 * @param id of the user
 	 * @return User
 	 */
 	public User getUserById(Integer id) {
 
 		log.info("Get one user in the database with id : {} .", id);
-		
+
         User user = userRepository.findById(id)
         		.orElseThrow(() -> new RuntimeException("Invalid user Id:" + id));
 
@@ -58,13 +58,13 @@ public class UserService {
 
 	/**
 	 * Add a new user entity in the database
-	 * 
+	 *
 	 * @param new user
 	 */
 	public void addNewUser(@Valid User user) {
 
 		log.info("Add new user object in the database : {} .", user);
-		
+
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(encoder.encode(user.getPassword()));
 
@@ -74,28 +74,28 @@ public class UserService {
 
 	/**
 	 * Update the existing user entity in the database
-	 * 
+	 *
 	 * @param update user
 	 */
 	public void updateUser(@Valid User user) {
 
 		log.info("Update user object existing in the database with id : {} .", user.getId());
-		
+
 		User existingUser = getUserById(user.getId());
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
 		if(user.getFullname() != existingUser.getFullname()) {
 			existingUser.setFullname(user.getFullname());
 		}
-		
+
 		if(user.getUsername() != existingUser.getUsername()) {
 			existingUser.setUsername(user.getUsername());
 		}
-		
+
         if(user.getPassword() != existingUser.getPassword()) {
         	existingUser.setPassword(encoder.encode(user.getPassword()));
         }
-        
+
         if(user.getRole() != existingUser.getRole()) {
         	existingUser.setRole(user.getRole());
         }
@@ -106,14 +106,14 @@ public class UserService {
 
 	/**
 	 * Delete an existing user entity in the database depending of the id
-	 * 
+	 *
 	 * @param id of the user
 	 * @return true if delete
 	 */
 	public boolean deleteUser(Integer id) {
 
 		log.info("Delete user object in the database with id : {} .", id);
-		
+
 		if(userRepository.existsById(id)) {
 
 			userRepository.deleteById(id);

@@ -26,41 +26,41 @@ class BidListControllerTest {
 
 	@Autowired
 	MockMvc mockMvc;
-	
+
 	@Autowired
 	BidListRepository bidListRepository;
-	
+
 	@Test
 	@WithMockUser
 	public void getAllBidListsInDatabaseAndReturnListPageWithData() throws Exception {
-		
+
 		//Testing request
 		mockMvc.perform(MockMvcRequestBuilders.get("/bidList/list"))
 			.andDo(MockMvcResultHandlers.print())
 			.andExpect(MockMvcResultMatchers.status().isOk())
 			.andExpect(MockMvcResultMatchers.model().attributeExists("bidLists"))
 			.andExpect(MockMvcResultMatchers.view().name("bidList/list"));
-		
+
 	}
-	
+
 	@Test
 	@WithMockUser
 	public void getAccessToTheAddingPageAndCountainEmptyEntity() throws Exception {
-		
+
 		//Testing request
 		mockMvc.perform(MockMvcRequestBuilders.get("/bidList/add"))
 			.andDo(MockMvcResultHandlers.print())
 			.andExpect(MockMvcResultMatchers.status().isOk())
 			.andExpect(MockMvcResultMatchers.model().attributeExists("bidList"))
 			.andExpect(MockMvcResultMatchers.view().name("bidList/add"));
-		
+
 	}
-	
+
 	@Test
 	@WithMockUser
 	@Transactional
 	public void postNewValidBidListAndRedirectToThePageList() throws Exception {
-		
+
 		//Testing request
 		mockMvc.perform(MockMvcRequestBuilders.post("/bidList/validate")
 				.with(SecurityMockMvcRequestPostProcessors.csrf())
@@ -70,20 +70,20 @@ class BidListControllerTest {
 			.andDo(MockMvcResultHandlers.print())
 			.andExpect(MockMvcResultMatchers.status().isFound())
 			.andExpect(MockMvcResultMatchers.view().name("redirect:/bidList/list"));
-		
+
 		//Get the last bidlist save in database
 		List<BidList> bidLists = bidListRepository.findAll();
 		BidList bidList = bidLists.get(bidLists.size() - 1);
-		
+
 		//Delete the object who was created
 		bidListRepository.delete(bidList);
-		
+
 	}
-	
+
 	@Test
 	@WithMockUser
 	public void postNoneValidateBidListdAndShowFieldsError() throws Exception {
-		
+
 		//Testing request
 		mockMvc.perform(MockMvcRequestBuilders.post("/bidList/validate")
 				.with(SecurityMockMvcRequestPostProcessors.csrf()))
@@ -92,49 +92,49 @@ class BidListControllerTest {
 			.andExpect(MockMvcResultMatchers.model()
 					.attributeHasFieldErrors("bidList","account", "type", "bidQuantity"))
 			.andExpect(MockMvcResultMatchers.view().name("bidList/add"));
-		
+
 	}
-	
+
 	@Test
 	@WithMockUser
 	@Transactional
 	public void getTheUpdatePageAndCountainTheObject() throws Exception {
-		
+
 		//Save a new rating entity
 		BidList newBidList = new BidList("ACCOUNT", "TYPE", 1);
 		bidListRepository.save(newBidList);
-		
+
 		//Get the last bidlist save in database
 		List<BidList> bidLists = bidListRepository.findAll();
 		BidList bidList = bidLists.get(bidLists.size() - 1);
-		
+
 		//Testing request
 		mockMvc.perform(MockMvcRequestBuilders.get("/bidList/update/" + bidList.getBidListId()))
 			.andDo(MockMvcResultHandlers.print())
 			.andExpect(MockMvcResultMatchers.status().isOk())
 			.andExpect(MockMvcResultMatchers.model().attributeExists("bidList"))
 			.andExpect(MockMvcResultMatchers.view().name("bidList/update"));
-		
+
 		//Delete the object who was created
 		bidListRepository.delete(bidList);
-		
+
 	}
-	
+
 	@Test
 	@WithMockUser
 	@Transactional
 	public void postValidateUpdateBidListAndRedirectToThePageList() throws Exception {
-		
+
 		//Save a new rating entity
 		BidList newBidList = new BidList("ACCOUNT", "TYPE", 1);
 		bidListRepository.save(newBidList);
-		
+
 		//Get the last bidlist save in database
 		List<BidList> bidLists = bidListRepository.findAll();
 		BidList bidList = bidLists.get(bidLists.size() - 1);
-		
+
 		//Testing request
-		
+
 		mockMvc.perform(MockMvcRequestBuilders.post("/bidList/update/" + bidList.getBidListId())
 				.with(SecurityMockMvcRequestPostProcessors.csrf())
 				.param("account", "account")
@@ -143,25 +143,25 @@ class BidListControllerTest {
 			.andDo(MockMvcResultHandlers.print())
 			.andExpect(MockMvcResultMatchers.status().isFound())
 			.andExpect(MockMvcResultMatchers.view().name("redirect:/bidList/list"));
-		
+
 		//Delete the object who was created
 		bidListRepository.delete(bidList);
-		
+
 	}
-	
+
 	@Test
 	@WithMockUser
 	@Transactional
 	public void postNoneValidateUpdateBidListAndShowFieldsError() throws Exception {
-		
+
 		//Save a new rating entity
 		BidList newBidList = new BidList("ACCOUNT", "TYPE", 1);
 		bidListRepository.save(newBidList);
-		
+
 		//Get the last bidlist save in database
 		List<BidList> bidLists = bidListRepository.findAll();
 		BidList bidList = bidLists.get(bidLists.size() - 1);
-		
+
 		//Testing request
 		mockMvc.perform(MockMvcRequestBuilders.post("/bidList/update/" + bidList.getBidListId())
 				.with(SecurityMockMvcRequestPostProcessors.csrf()))
@@ -170,29 +170,29 @@ class BidListControllerTest {
 			.andExpect(MockMvcResultMatchers.model()
 					.attributeHasFieldErrors("bidList","account", "type", "bidQuantity"))
 			.andExpect(MockMvcResultMatchers.view().name("bidList/update"));
-		
+
 	}
-	
+
 	@Test
 	@WithMockUser
 	@Transactional
 	public void deleteAnExistingBidListObjectInTheDatabase() throws Exception {
-		
+
 		//Save a new rating entity
 		BidList newBidList = new BidList("ACCOUNT", "TYPE", 1);
 		bidListRepository.save(newBidList);
-		
+
 		//Get the last bidlist save in database
 		List<BidList> bidLists = bidListRepository.findAll();
 		BidList bidList = bidLists.get(bidLists.size() - 1);
-		
+
 		//Testing Request
 		mockMvc.perform(MockMvcRequestBuilders.get("/bidList/delete/" + bidList.getBidListId())
 				.with(SecurityMockMvcRequestPostProcessors.csrf()))
 			.andDo(MockMvcResultHandlers.print())
 			.andExpect(MockMvcResultMatchers.status().isFound())
 			.andExpect(MockMvcResultMatchers.view().name("redirect:/bidList/list"));
-		
+
 	}
 
 }

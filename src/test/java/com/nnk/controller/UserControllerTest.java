@@ -25,41 +25,41 @@ class UserControllerTest {
 
 	@Autowired
 	MockMvc mockMvc;
-	
+
 	@Autowired
 	UserRepository userRepository;
-	
+
 	@Test
 	@WithMockUser
 	public void getAllUsersInDatabaseAndReturnListPageWithData() throws Exception {
-		
+
 		//Testing request
 		mockMvc.perform(MockMvcRequestBuilders.get("/user/list"))
 			.andDo(MockMvcResultHandlers.print())
 			.andExpect(MockMvcResultMatchers.status().isOk())
 			.andExpect(MockMvcResultMatchers.model().attributeExists("users"))
 			.andExpect(MockMvcResultMatchers.view().name("user/list"));
-		
+
 	}
-	
+
 	@Test
 	@WithMockUser
 	public void getAccessToTheAddingPageAndCountainEmptyEntity() throws Exception {
-		
+
 		//Testing request
 		mockMvc.perform(MockMvcRequestBuilders.get("/user/add"))
 			.andDo(MockMvcResultHandlers.print())
 			.andExpect(MockMvcResultMatchers.status().isOk())
 			.andExpect(MockMvcResultMatchers.model().attributeExists("user"))
 			.andExpect(MockMvcResultMatchers.view().name("user/add"));
-		
+
 	}
-	
+
 	@Test
 	@WithMockUser
 	@Transactional
 	public void postNewValidUserAndRedirectToThePageList() throws Exception {
-		
+
 		//Testing request
 		mockMvc.perform(MockMvcRequestBuilders.post("/user/validate")
 				.with(SecurityMockMvcRequestPostProcessors.csrf())
@@ -70,20 +70,20 @@ class UserControllerTest {
 			.andDo(MockMvcResultHandlers.print())
 			.andExpect(MockMvcResultMatchers.status().isFound())
 			.andExpect(MockMvcResultMatchers.view().name("redirect:/user/list"));
-		
+
 		//Get the last user save in database
 		List<User> users = userRepository.findAll();
 		User user = users.get(users.size() - 1);
-		
+
 		//Delete the object who was created
 		userRepository.delete(user);
-		
+
 	}
-	
+
 	@Test
 	@WithMockUser
 	public void postNoneValidateUserdAndShowFieldsError() throws Exception {
-		
+
 		//Testing request
 		mockMvc.perform(MockMvcRequestBuilders.post("/user/validate")
 				.with(SecurityMockMvcRequestPostProcessors.csrf()))
@@ -92,47 +92,47 @@ class UserControllerTest {
 			.andExpect(MockMvcResultMatchers.model()
 					.attributeHasFieldErrors("user","fullname", "username", "password", "role"))
 			.andExpect(MockMvcResultMatchers.view().name("user/add"));
-		
+
 	}
-	
+
 	@Test
 	@WithMockUser
 	@Transactional
 	public void getTheUpdatePageAndCountainTheObject() throws Exception {
-		
+
 		//Save a new rating entity
 		User newUser = new User("User", "user", "123456", "USER");
 		userRepository.save(newUser);
-		
+
 		//Get the last user save in database
 		List<User> users = userRepository.findAll();
 		User user = users.get(users.size() - 1);
-		
+
 		//Testing request
 		mockMvc.perform(MockMvcRequestBuilders.get("/user/update/" + user.getId()))
 			.andDo(MockMvcResultHandlers.print())
 			.andExpect(MockMvcResultMatchers.status().isOk())
 			.andExpect(MockMvcResultMatchers.model().attributeExists("user"))
 			.andExpect(MockMvcResultMatchers.view().name("user/update"));
-		
+
 		//Delete the object who was created
 		userRepository.delete(user);
-		
+
 	}
-	
+
 	@Test
 	@WithMockUser
 	@Transactional
 	public void postValidateUpdateUserAndRedirectToThePageList() throws Exception {
-		
+
 		//Save a new rating entity
 		User newUser = new User("User", "user", "123456", "USER");
 		userRepository.save(newUser);
-		
+
 		//Get the last user save in database
 		List<User> users = userRepository.findAll();
 		User user = users.get(users.size() - 1);
-		
+
 		//Testing request
 		mockMvc.perform(MockMvcRequestBuilders.post("/user/update/" + user.getId())
 				.with(SecurityMockMvcRequestPostProcessors.csrf())
@@ -143,25 +143,25 @@ class UserControllerTest {
 			.andDo(MockMvcResultHandlers.print())
 			.andExpect(MockMvcResultMatchers.status().isFound())
 			.andExpect(MockMvcResultMatchers.view().name("redirect:/user/list"));
-		
+
 		//Delete the object who was created
 		userRepository.delete(user);
-		
+
 	}
-	
+
 	@Test
 	@WithMockUser
 	@Transactional
 	public void postNoneValidateUpdateUserAndShowFieldsError() throws Exception {
-		
+
 		//Save a new rating entity
 		User newUser = new User("User", "user", "123456", "USER");
 		userRepository.save(newUser);
-		
+
 		//Get the last user save in database
 		List<User> users = userRepository.findAll();
 		User user = users.get(users.size() - 1);
-		
+
 		//Testing request
 		mockMvc.perform(MockMvcRequestBuilders.post("/user/update/" + user.getId())
 				.with(SecurityMockMvcRequestPostProcessors.csrf()))
@@ -170,29 +170,29 @@ class UserControllerTest {
 			.andExpect(MockMvcResultMatchers.model()
 					.attributeHasFieldErrors("user","fullname", "username", "password", "role"))
 			.andExpect(MockMvcResultMatchers.view().name("user/update"));
-		
+
 	}
-	
+
 	@Test
 	@WithMockUser
 	@Transactional
 	public void deleteAnExistingBidListObjectInTheDatabase() throws Exception {
-		
+
 		//Save a new rating entity
 		User newUser = new User("User", "user", "123456", "USER");
 		userRepository.save(newUser);
-		
+
 		//Get the last user save in database
 		List<User> users = userRepository.findAll();
 		User user = users.get(users.size() - 1);
-		
+
 		//Testing Request
 		mockMvc.perform(MockMvcRequestBuilders.get("/user/delete/" + user.getId())
 				.with(SecurityMockMvcRequestPostProcessors.csrf()))
 			.andDo(MockMvcResultHandlers.print())
 			.andExpect(MockMvcResultMatchers.status().isFound())
 			.andExpect(MockMvcResultMatchers.view().name("redirect:/user/list"));
-		
+
 	}
 
 }
