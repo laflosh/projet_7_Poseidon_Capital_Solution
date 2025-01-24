@@ -15,7 +15,7 @@ import org.springframework.security.web.firewall.StrictHttpFirewall;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
- *
+ * Configuration class for Spring security that defines the application's security policies
  */
 @Configuration
 @EnableWebSecurity
@@ -25,8 +25,10 @@ public class SecurityConfig {
 	CustomUserDetailsService customUserDetailsService;
 
 	/**
+	 * Configures the security filter chain for HTTP requests.
+	 * 
 	 * @param http
-	 * @return
+	 * @return a SecurityFilterChain defining the security configuration
 	 * @throws Exception
 	 */
 	@Bean
@@ -75,7 +77,9 @@ public class SecurityConfig {
 	}
 	
     /**
-     * @return
+     * Customizes the HTTP firewall to authorize semi-colon in URL
+     * 
+     * @return HttpFirewall
      */
     @Bean
     public HttpFirewall allowSemiColonFirewall() {
@@ -87,7 +91,9 @@ public class SecurityConfig {
     }
 
 	/**
-	 * @return
+	 * Configures the password encoder used for securing the user's password
+	 * 
+	 * @return BCryptPasswordEncoder
 	 */
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
@@ -97,9 +103,11 @@ public class SecurityConfig {
 	}
 
 	/**
+	 * Configures the authentication manager for handling user authentication
+	 * 
 	 * @param http
 	 * @param bCryptPasswordEncoder
-	 * @return
+	 * @return AuthenticationManager used for authentication
 	 * @throws Exception
 	 */
 	@Bean

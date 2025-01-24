@@ -17,7 +17,9 @@ import org.springframework.stereotype.Service;
 import com.nnk.springboot.repositories.UserRepository;
 
 /**
- *
+ * This service is used by Spring security to load user details
+ * from the database based on the username of the user
+ * during the authentication process
  */
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -28,7 +30,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 	UserRepository userRepository;
 
 	/**
-	 *
+	 * Load the user details based oh the username of the user from the database
+	 * 
+	 * @param username of the user
+	 * @return user details of the user
 	 */
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
@@ -52,6 +57,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 	}
 
 	/**
+	 * Converts the user's role properties into list of granted authorities
+	 * 
 	 * @param role
 	 * @return
 	 */
