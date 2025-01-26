@@ -65,7 +65,7 @@ class UserControllerTest {
 				.with(SecurityMockMvcRequestPostProcessors.csrf())
 				.param("fullname", "User")
 				.param("username", "user")
-				.param("password", "123456")
+				.param("password", "Password1!")
 				.param("role", "USER"))
 			.andDo(MockMvcResultHandlers.print())
 			.andExpect(MockMvcResultMatchers.status().isFound())
@@ -101,7 +101,7 @@ class UserControllerTest {
 	public void getTheUpdatePageAndCountainTheObject() throws Exception {
 
 		//Save a new rating entity
-		User newUser = new User("User", "user", "123456", "USER");
+		User newUser = new User("User", "Password1!", "user", "USER");
 		userRepository.save(newUser);
 
 		//Get the last user save in database
@@ -126,7 +126,7 @@ class UserControllerTest {
 	public void postValidateUpdateUserAndRedirectToThePageList() throws Exception {
 
 		//Save a new rating entity
-		User newUser = new User("User", "user", "123456", "USER");
+		User newUser = new User("User", "Password1!", "user", "USER");
 		userRepository.save(newUser);
 
 		//Get the last user save in database
@@ -138,7 +138,7 @@ class UserControllerTest {
 				.with(SecurityMockMvcRequestPostProcessors.csrf())
 				.param("fullname", "User")
 				.param("username", "user")
-				.param("password", "654321")
+				.param("password", "Password1%")
 				.param("role", "USER"))
 			.andDo(MockMvcResultHandlers.print())
 			.andExpect(MockMvcResultMatchers.status().isFound())
@@ -155,7 +155,7 @@ class UserControllerTest {
 	public void postNoneValidateUpdateUserAndShowFieldsError() throws Exception {
 
 		//Save a new rating entity
-		User newUser = new User("User", "user", "123456", "USER");
+		User newUser = new User("User", "Password1!", "user", "USER");
 		userRepository.save(newUser);
 
 		//Get the last user save in database
@@ -174,12 +174,12 @@ class UserControllerTest {
 	}
 
 	@Test
-	@WithMockUser
+	@WithMockUser(username = "admin", roles = {"ADMIN"})
 	@Transactional
 	public void deleteAnExistingBidListObjectInTheDatabase() throws Exception {
 
 		//Save a new rating entity
-		User newUser = new User("User", "user", "123456", "USER");
+		User newUser = new User("User", "Password1!", "user", "USER");
 		userRepository.save(newUser);
 
 		//Get the last user save in database

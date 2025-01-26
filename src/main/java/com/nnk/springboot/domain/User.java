@@ -23,7 +23,7 @@ public class User {
     private String username;
 
     @Column(name = "password")
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8}$")
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!*@#$%^&+=]).{8,}$")
     @NotBlank(message = "Password is mandatory")
     private String password;
 
