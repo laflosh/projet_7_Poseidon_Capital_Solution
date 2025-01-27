@@ -45,7 +45,7 @@ public class RuleNameController {
     	List<RuleName> ruleNames = ruleNameService.getAllRuleNames();
 
         model.addAttribute("ruleNames", ruleNames);
-    	model.addAttribute("user", auth.getName());
+    	model.addAttribute("username", auth.getName());
 
         return "ruleName/list";
     }
@@ -94,7 +94,7 @@ public class RuleNameController {
         	ruleNameService.addNewRuleName(ruleName);
 
         	model.addAttribute("ruleNames", ruleNameService.getAllRuleNames());
-        	model.addAttribute("user", auth.getName());
+        	model.addAttribute("username", auth.getName());
 
         	return "redirect:/ruleName/list";
 

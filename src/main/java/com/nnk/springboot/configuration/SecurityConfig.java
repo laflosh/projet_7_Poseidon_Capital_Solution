@@ -9,8 +9,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.firewall.HttpFirewall;
-import org.springframework.security.web.firewall.StrictHttpFirewall;
 
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -38,20 +36,19 @@ public class SecurityConfig {
 				.requestMatchers("/login").permitAll()
 				.requestMatchers("/app/login").permitAll()
 				.requestMatchers("/").permitAll()
-				.requestMatchers(
-						"/admin/home",
-						"/app/secure/article-details",
-						"users/delete"
-						).hasRole("ADMIN")
 				.requestMatchers("/static/**").permitAll()
 				.requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
 				.requestMatchers("/favicon.ico").permitAll()
-				.requestMatchers("/user/**").permitAll()
 				.requestMatchers("/rating/**").authenticated()
 				.requestMatchers("/ruleName/**").authenticated()
 				.requestMatchers("/bidList/**").authenticated()
 				.requestMatchers("/curvePoint/**").authenticated()
 				.requestMatchers("/trade/**").authenticated()
+				.requestMatchers(
+						"/admin/home",
+						"/app/secure/article-details",
+						"/users/**"
+						).hasRole("ADMIN")
 				)
 			.formLogin(formLogin -> formLogin
 					.loginPage("/app/login")
@@ -75,20 +72,6 @@ public class SecurityConfig {
 		return http.build();
 
 	}
-	
-    /**
-     * Customizes the HTTP firewall to authorize semi-colon in URL
-     * 
-     * @return HttpFirewall
-     */
-    @Bean
-    public HttpFirewall allowSemiColonFirewall() {
-    	StrictHttpFirewall firewall = new StrictHttpFirewall();
-
-    	firewall.setAllowSemicolon(true);
-
-    	return firewall;
-    }
 
 	/**
 	 * Configures the password encoder used for securing the user's password
