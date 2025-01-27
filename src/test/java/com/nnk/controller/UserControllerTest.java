@@ -30,7 +30,7 @@ class UserControllerTest {
 	UserRepository userRepository;
 
 	@Test
-	@WithMockUser
+	@WithMockUser(username = "admin", roles = "ADMIN")
 	public void getAllUsersInDatabaseAndReturnListPageWithData() throws Exception {
 
 		//Testing request
@@ -43,7 +43,7 @@ class UserControllerTest {
 	}
 
 	@Test
-	@WithMockUser
+	@WithMockUser(username = "admin", roles = "ADMIN")
 	public void getAccessToTheAddingPageAndCountainEmptyEntity() throws Exception {
 
 		//Testing request
@@ -56,7 +56,7 @@ class UserControllerTest {
 	}
 
 	@Test
-	@WithMockUser
+	@WithMockUser(username = "admin", roles = "ADMIN")
 	@Transactional
 	public void postNewValidUserAndRedirectToThePageList() throws Exception {
 
@@ -81,7 +81,7 @@ class UserControllerTest {
 	}
 
 	@Test
-	@WithMockUser
+	@WithMockUser(username = "admin", roles = "ADMIN")
 	public void postNoneValidateUserdAndShowFieldsError() throws Exception {
 
 		//Testing request
@@ -96,7 +96,7 @@ class UserControllerTest {
 	}
 
 	@Test
-	@WithMockUser
+	@WithMockUser(username = "admin", roles = "ADMIN")
 	@Transactional
 	public void getTheUpdatePageAndCountainTheObject() throws Exception {
 
@@ -121,7 +121,7 @@ class UserControllerTest {
 	}
 
 	@Test
-	@WithMockUser
+	@WithMockUser(username = "admin", roles = "ADMIN")
 	@Transactional
 	public void postValidateUpdateUserAndRedirectToThePageList() throws Exception {
 
@@ -150,7 +150,7 @@ class UserControllerTest {
 	}
 
 	@Test
-	@WithMockUser
+	@WithMockUser(username = "admin", roles = "ADMIN")
 	@Transactional
 	public void postNoneValidateUpdateUserAndShowFieldsError() throws Exception {
 
@@ -174,9 +174,9 @@ class UserControllerTest {
 	}
 
 	@Test
-	@WithMockUser(username = "admin", roles = {"ADMIN"})
+	@WithMockUser(username = "admin", roles = "ADMIN")
 	@Transactional
-	public void deleteAnExistingBidListObjectInTheDatabase() throws Exception {
+	public void deleteAnExistingUserObjectInTheDatabase() throws Exception {
 
 		//Save a new rating entity
 		User newUser = new User("User", "Password1!", "user", "USER");

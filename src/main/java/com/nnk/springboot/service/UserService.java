@@ -24,7 +24,7 @@ public class UserService {
 
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private DataValidator dataValidator;
 
@@ -69,15 +69,15 @@ public class UserService {
 
 		if(dataValidator.checkString(user.getUsername()) &&
 			dataValidator.checkString(user.getFullname()) &&
-			dataValidator.checkString(user.getPassword()) == true) {
-			
+			dataValidator.checkString(user.getPassword())) {
+
 			log.info("Add new user object in the database : {} .", user);
 
 	        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 	        user.setPassword(encoder.encode(user.getPassword()));
 
 	        userRepository.save(user);
-			
+
 		}
 
 	}
@@ -91,8 +91,8 @@ public class UserService {
 
 		if(dataValidator.checkString(user.getUsername()) &&
 			dataValidator.checkString(user.getFullname()) &&
-			dataValidator.checkString(user.getPassword()) == true) {
-			
+			dataValidator.checkString(user.getPassword())) {
+
 			log.info("Update user object existing in the database with id : {} .", user.getId());
 
 			User existingUser = getUserById(user.getId());
@@ -115,7 +115,7 @@ public class UserService {
 	        }
 
 	        userRepository.save(existingUser);
-			
+
 		}
 
 	}

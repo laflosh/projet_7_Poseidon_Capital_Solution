@@ -23,7 +23,7 @@ public class RatingService {
 
 	@Autowired
 	private RatingRepository ratingRepository;
-	
+
 	@Autowired
 	DataValidator dataValidator;
 
@@ -65,15 +65,15 @@ public class RatingService {
 	 */
 	public void addNewRating(@Valid Rating rating) {
 
-		if(dataValidator.checkString(rating.getMoodysRating()) && 
+		if(dataValidator.checkString(rating.getMoodysRating()) &&
 			dataValidator.checkString(rating.getSandPRating()) &&
 			dataValidator.checkString(rating.getFitchRating()) &&
-			dataValidator.checkInteger(rating.getOrderNumber()) == true) {
-			
+			dataValidator.checkInteger(rating.getOrderNumber())) {
+
 			log.info("Add a new rating object in the database : {} .", rating);
 
 			ratingRepository.save(rating);
-			
+
 		}
 
 	}
@@ -85,11 +85,11 @@ public class RatingService {
 	 */
 	public void updateRating(@Valid Rating rating) {
 
-		if(dataValidator.checkString(rating.getMoodysRating()) && 
+		if(dataValidator.checkString(rating.getMoodysRating()) &&
 				dataValidator.checkString(rating.getSandPRating()) &&
 				dataValidator.checkString(rating.getFitchRating()) &&
-				dataValidator.checkInteger(rating.getOrderNumber()) == true) {
-			
+				dataValidator.checkInteger(rating.getOrderNumber())) {
+
 			log.info("Update the rating object existing in the database with id : {} .", rating.getId());
 
 			Rating existingRating = getRatingById(rating.getId());
@@ -111,7 +111,7 @@ public class RatingService {
 			}
 
 			ratingRepository.save(existingRating);
-			
+
 		}
 
 	}

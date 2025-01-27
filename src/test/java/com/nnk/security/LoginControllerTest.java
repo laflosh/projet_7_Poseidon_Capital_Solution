@@ -19,21 +19,21 @@ class LoginControllerTest {
 
 	@Autowired
 	MockMvc mockMvc;
-	
+
 	@Test
 	public void getAccessToTheLoginPage() throws Exception {
-		
+
 		//testing request
 		mockMvc.perform(MockMvcRequestBuilders.get("/app/login"))
 			.andDo(MockMvcResultHandlers.print())
 			.andExpect(MockMvcResultMatchers.status().isOk())
 			.andExpect(MockMvcResultMatchers.view().name("login"));
-		
+
 	}
-	
+
 	@Test
 	public void loginInApplicationAndReturnAuthenticated() throws Exception {
-		
+
 		//Testing request
 		mockMvc.perform(SecurityMockMvcRequestBuilders.formLogin("/login")
 				.user("user")
@@ -41,19 +41,19 @@ class LoginControllerTest {
 			.andDo(MockMvcResultHandlers.print())
 			.andExpect(SecurityMockMvcResultMatchers.authenticated())
 			.andExpect(MockMvcResultMatchers.redirectedUrl("/bidList/list"));
-		
+
 	}
-	
+
 	@Test
 	public void loginInApplicationWithWrongArgumentAndReturnUnauthenticated() throws Exception {
-		
+
 		//testing request
 		mockMvc.perform(SecurityMockMvcRequestBuilders.formLogin("/login")
 				.user("user")
 				.password("wrongpassword"))
 			.andDo(MockMvcResultHandlers.print())
 			.andExpect(SecurityMockMvcResultMatchers.unauthenticated());
-		
+
 	}
 
 }

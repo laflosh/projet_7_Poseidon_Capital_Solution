@@ -23,7 +23,7 @@ public class CurvePointService {
 
 	@Autowired
 	private CurvePointRepository curvePointRepository;
-	
+
 	@Autowired
 	private DataValidator dataValidator;
 
@@ -66,13 +66,13 @@ public class CurvePointService {
 	 */
 	public void addNewCurvePoint(@Valid CurvePoint curvePoint) {
 
-		if(dataValidator.checkDouble(curvePoint.getTerm().toString()) && 
-			dataValidator.checkDouble(curvePoint.getValue().toString()) == true ) {
-			
+		if(dataValidator.checkDouble(curvePoint.getTerm().toString()) &&
+			dataValidator.checkDouble(curvePoint.getValue().toString()) ) {
+
 			log.info("Add new curvepoint object in database : {} .", curvePoint);
 
 			curvePointRepository.save(curvePoint);
-			
+
 		}
 
 	}
@@ -84,9 +84,9 @@ public class CurvePointService {
 	 */
 	public void updateCurvePoint(@Valid CurvePoint curvePoint) {
 
-		if(dataValidator.checkDouble(curvePoint.getTerm().toString()) && 
-			dataValidator.checkDouble(curvePoint.getValue().toString()) == true) {
-			
+		if(dataValidator.checkDouble(curvePoint.getTerm().toString()) &&
+			dataValidator.checkDouble(curvePoint.getValue().toString())) {
+
 			log.info("Update the curvepoint object existing in the database with id : {} .", curvePoint.getId());
 
 			CurvePoint existingCurvePoint = getCurvePointById(curvePoint.getId());
@@ -100,7 +100,7 @@ public class CurvePointService {
 			}
 
 			curvePointRepository.save(existingCurvePoint);
-			
+
 		}
 
 	}

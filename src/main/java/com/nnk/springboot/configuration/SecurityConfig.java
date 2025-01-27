@@ -24,7 +24,7 @@ public class SecurityConfig {
 
 	/**
 	 * Configures the security filter chain for HTTP requests.
-	 * 
+	 *
 	 * @param http
 	 * @return a SecurityFilterChain defining the security configuration
 	 * @throws Exception
@@ -32,7 +32,8 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-		http.authorizeHttpRequests(auth -> auth
+		http.csrf(csrf -> csrf.disable())
+			.authorizeHttpRequests(auth -> auth
 				.requestMatchers("/login").permitAll()
 				.requestMatchers("/app/login").permitAll()
 				.requestMatchers("/").permitAll()
@@ -47,7 +48,7 @@ public class SecurityConfig {
 				.requestMatchers(
 						"/admin/home",
 						"/app/secure/article-details",
-						"/users/**"
+						"/user/**"
 						).hasRole("ADMIN")
 				)
 			.formLogin(formLogin -> formLogin
@@ -75,7 +76,7 @@ public class SecurityConfig {
 
 	/**
 	 * Configures the password encoder used for securing the user's password
-	 * 
+	 *
 	 * @return BCryptPasswordEncoder
 	 */
 	@Bean
@@ -87,7 +88,7 @@ public class SecurityConfig {
 
 	/**
 	 * Configures the authentication manager for handling user authentication
-	 * 
+	 *
 	 * @param http
 	 * @param bCryptPasswordEncoder
 	 * @return AuthenticationManager used for authentication

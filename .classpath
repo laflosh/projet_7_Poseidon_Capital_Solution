@@ -37,24 +37,5 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="C:/Users/Florent Lecointre/.m2/repository/org/springframework/security/spring-security-test/6.3.4/spring-security-test-6.3.4.jar" sourcepath="C:/Users/Florent Lecointre/.m2/repository/org/springframework/security/spring-security-test/6.3.4/spring-security-test-6.3.4-sources.jar">
-		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="test" value="true"/>
-			<attribute name="maven.groupId" value="org.springframework.security"/>
-			<attribute name="maven.artifactId" value="spring-security-test"/>
-			<attribute name="maven.version" value="6.3.4"/>
-			<attribute name="maven.scope" value="test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Florent Lecointre/.m2/repository/javax/enterprise/cdi-api/1.2/cdi-api-1.2.jar" sourcepath="C:/Users/Florent Lecointre/.m2/repository/javax/enterprise/cdi-api/1.2/cdi-api-1.2-sources.jar">
-		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="maven.groupId" value="javax.enterprise"/>
-			<attribute name="maven.artifactId" value="cdi-api"/>
-			<attribute name="maven.version" value="1.2"/>
-			<attribute name="maven.scope" value="compile"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

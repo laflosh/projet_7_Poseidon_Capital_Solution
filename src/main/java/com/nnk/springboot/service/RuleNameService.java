@@ -23,7 +23,7 @@ public class RuleNameService {
 
 	@Autowired
 	private RuleNameRepository ruleNameRepository;
-	
+
 	@Autowired
 	private DataValidator dataValidator;
 
@@ -66,18 +66,18 @@ public class RuleNameService {
 	 * @param new ruleName
 	 */
 	public void addNewRuleName(@Valid RuleName ruleName) {
-		
+
 		if(dataValidator.checkString(ruleName.getName()) &&
 			dataValidator.checkString(ruleName.getDescription()) &&
 			dataValidator.checkString(ruleName.getJson()) &&
 			dataValidator.checkString(ruleName.getTemplate()) &&
 			dataValidator.checkString(ruleName.getSqlPart()) &&
-			dataValidator.checkString(ruleName.getSqlStr()) == true) {
-			
+			dataValidator.checkString(ruleName.getSqlStr())) {
+
 			log.info("Add new rulename object in the database : {} .", ruleName);
 
 			ruleNameRepository.save(ruleName);
-			
+
 		}
 
 	}
@@ -94,8 +94,8 @@ public class RuleNameService {
 			dataValidator.checkString(ruleName.getJson()) &&
 			dataValidator.checkString(ruleName.getTemplate()) &&
 			dataValidator.checkString(ruleName.getSqlPart()) &&
-			dataValidator.checkString(ruleName.getSqlStr()) == true) {
-			
+			dataValidator.checkString(ruleName.getSqlStr())) {
+
 			log.info("Update the rulename object existing in the database with id : {} .", ruleName.getId());
 
 			RuleName existingRuleName = getRuleNameById(ruleName.getId());
@@ -125,7 +125,7 @@ public class RuleNameService {
 			}
 
 			ruleNameRepository.save(existingRuleName);
-			
+
 		}
 
 	}

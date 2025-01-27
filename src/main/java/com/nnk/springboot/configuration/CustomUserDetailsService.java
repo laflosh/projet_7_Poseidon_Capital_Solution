@@ -31,7 +31,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 	/**
 	 * Load the user details based oh the username of the user from the database
-	 * 
+	 *
 	 * @param username of the user
 	 * @return user details of the user
 	 */
@@ -58,7 +58,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 	/**
 	 * Converts the user's role properties into list of granted authorities
-	 * 
+	 *
 	 * @param role
 	 * @return
 	 */

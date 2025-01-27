@@ -23,7 +23,7 @@ public class BidListService {
 
 	@Autowired
 	private BidListRepository bidListRepository;
-	
+
 	@Autowired
 	private DataValidator dataValidator;
 
@@ -64,15 +64,15 @@ public class BidListService {
 	 * @param new bid
 	 */
 	public void addNewBidList(@Valid BidList bidList) {
-		
+
 		if(dataValidator.checkString(bidList.getAccount()) &&
-			dataValidator.checkString(bidList.getType()) && 
-			dataValidator.checkDouble(bidList.getBidQuantity().toString()) == true) {
-			
+			dataValidator.checkString(bidList.getType()) &&
+			dataValidator.checkDouble(bidList.getBidQuantity().toString())) {
+
 			log.info("Add new bidlist object in the database : {} .", bidList);
 
 			bidListRepository.save(bidList);
-			
+
 		}
 
 	}
@@ -85,9 +85,9 @@ public class BidListService {
 	public void updateBidList(@Valid BidList bidList) {
 
 		if(dataValidator.checkString(bidList.getAccount()) &&
-			dataValidator.checkString(bidList.getType()) && 
-			dataValidator.checkDouble(bidList.getBidQuantity().toString()) == true) {
-			
+			dataValidator.checkString(bidList.getType()) &&
+			dataValidator.checkDouble(bidList.getBidQuantity().toString())) {
+
 			log.info("Update bidlist object existing in the database with id : {} .", bidList.getBidListId());
 
 			BidList existingBidList = getBidListById(bidList.getBidListId());
@@ -105,7 +105,7 @@ public class BidListService {
 			}
 
 			bidListRepository.save(existingBidList);
-			
+
 		}
 
 	}

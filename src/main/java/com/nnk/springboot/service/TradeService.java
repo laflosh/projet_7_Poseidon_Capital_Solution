@@ -23,10 +23,10 @@ public class TradeService {
 
 	@Autowired
 	private TradeRepository tradeRepository;
-	
+
 	@Autowired
 	private DataValidator dataValidator;
- 
+
 
 	/**
 	 * Fetching all trades entity in the database
@@ -69,12 +69,12 @@ public class TradeService {
 
 		if(dataValidator.checkString(trade.getAccount()) &&
 			dataValidator.checkString(trade.getType()) &&
-			dataValidator.checkDouble(trade.getBuyQuantity().toString()) == true) {
-			
+			dataValidator.checkDouble(trade.getBuyQuantity().toString())) {
+
 			log.info("Add new trade object in the database : {} .", trade);
 
 			tradeRepository.save(trade);
-			
+
 		}
 
 	}
@@ -88,8 +88,8 @@ public class TradeService {
 
 		if(dataValidator.checkString(trade.getAccount()) &&
 			dataValidator.checkString(trade.getType()) &&
-			dataValidator.checkDouble(trade.getBuyQuantity().toString()) == true) {
-			
+			dataValidator.checkDouble(trade.getBuyQuantity().toString())) {
+
 			log.info("Update trade object existing in the database with id : {} .", trade.getTradeId());
 
 			Trade existingTrade = getTradeById(trade.getTradeId());
@@ -107,7 +107,7 @@ public class TradeService {
 			}
 
 			tradeRepository.save(existingTrade);
-			
+
 		}
 
 	}
