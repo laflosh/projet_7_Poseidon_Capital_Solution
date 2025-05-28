@@ -59,8 +59,8 @@ This project involved:
 ### 📦 Installation
 
 ```bash
-git clone https://github.com/your-username/poseidon-capital-solution.git
-cd poseidon-capital-solution
+git clone https://github.com/laflosh/projet_7_Poseidon_Capital_Solution.git
+cd projet_7_Poseidon_Capital_Solution
 ```
 
 Update `src/main/resources/application.properties` with your MySQL credentials and database info.
